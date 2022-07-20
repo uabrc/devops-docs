@@ -1,5 +1,5 @@
 site_name: UAB Research Computing DevOps Docs
-repo_url: https://github.com/uabrc/devops-docs
+repo_url: https://github.com/uabrc/devops-docs-MkDocs
 
 theme:
   name: material

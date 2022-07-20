@@ -1,6 +1,6 @@
 # UAB Research Computing DevOps Documents
 
-Our documentation is available at [UABRC DevOps Docs](https://uabrc.github.io/devops-docs/).
+Our documentation code is available at [UABRC DevOps Docs](https://github.com/uabrc/devops-docs).
 
 ## Contributing
 

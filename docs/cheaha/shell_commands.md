@@ -24,7 +24,7 @@ Occassionaly, we will get a request from a user to extend the `TimeLimit` for a 
 The job's time limit. Output format is `[days-]hours:minutes:seconds` or "`UNLIMITED`". Input format (for update command) set is `minutes`, `minutes:seconds`, `hours:minutes:seconds`, `days-hours`, `days-hours:minutes` or `days-hours:minutes:seconds`. Time resolution is one minute and second values are rounded up to the next minute. If changing the time limit of a job, either specify a new time limit value or precede the time and equal sign with a "`+`" or "`-`" to increment or decrement the current time limit (e.g. "`TimeLimit+=30`"). In order to increment or decrement the current time limit, the JobId specification must precede the `TimeLimit` specification. Note that incrementing or decrementing the time limit for a job array is only allowed before the job array has been split into more than one job record.
 >>>
 
-Example: Extend the `TimeLimit` for three jobs by 10 days
+Example: Extend the `TimeLimit` for three jobs by 10 more days
 
 ```shell
 for job in 15202444 15202445 15202446; do

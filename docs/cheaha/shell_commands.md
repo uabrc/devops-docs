@@ -33,3 +33,51 @@ for job in 15202444 15202445 15202446; do
   scontrol show job $job | grep TimeLimit | awk '{print $2}'
 done
 ```
+
+## Fix User Directories and Slurm Account
+
+The following is code you can use to fix, if necessary, one or more users directories and Slurm accounts.
+
+You can either specify the number of users to `tail` from `getent passwd` to fix/verify the X most recently created accounts. Alternately, comment out the first `users=`, uncomment the second `users=` and add users space delimited
+
+```shell
+num_users=20
+users="$(getent passwd | tail -n ${num_users} | awk -F: '{print $1}' | tr '\n' ' ')"
+#users='blaze uabrules'
+#users="`echo ${users} | tr '[:upper:]' '[:lower:]'`"
+
+for user in `echo $users` ; do
+  echo $user
+  sudo /cm/shared/apps/slurm/current/bin/sacctmgr --immediate add Account $user
+  sudo /cm/shared/apps/slurm/current/bin/sacctmgr --immediate add User Accounts=$user $user
+  
+  dir=/home/$user
+  if [ ! -d $dir ]; then
+    echo "Creating directory $dir"
+    sudo cp -a /etc/skel $dir
+    sudo chown -R ${user}:${user} $dir
+    sudo chmod 700 $dir
+  else
+    sudo chown -R ${user}:${user} $dir
+    sudo chmod 700 $dir
+  fi
+  unset dir
+  for dir in /data/user/$user /scratch/$user /data/temporary-scratch/$user; do
+    if [ ! -d $dir ]; then
+      echo "Creating directory $dir"
+      sudo mkdir $dir
+      sudo chown ${user}:${user} $dir
+      sudo chmod 700 $dir
+    else
+      sudo chown -R ${user}:${user} $dir
+      sudo chmod 700 $dir
+    fi
+  done
+  
+  for dir in /home/$user /data/user/$user /scratch/$user /data/temporary-scratch/$user; do
+    ls -ld $dir
+  done
+done
+
+unset users num_users
+```

@@ -4,7 +4,7 @@ This is the proposed method to archive modulefiles for old softwares that we don
 
 * Login as the ``build`` user.
 * Go to the modulefile path for that particular software. 
-* Create a ``.archive`` folser in that location.
+* Create an ``.archive`` folder in that location.
   ```shell
   mkdir .archive
   ```

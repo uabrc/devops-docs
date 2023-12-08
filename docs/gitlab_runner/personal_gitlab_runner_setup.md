@@ -15,23 +15,23 @@ This document provides instructions on setting up your own personal gitlab runne
 * SSH onto the VM
 
 ### Install GitLab runner
-** Download the binary for your system
+* Download the binary for your system
    ```shell
    sudo curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
    ```
 
-** Give it permission to execute
+* Give it permission to execute
 ```shell
    sudo chmod +x /usr/local/bin/gitlab-runner
 ```
 
-**Create a GitLab Runner user
+* Create a GitLab Runner user
 ```shell
 sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
 ```
 
 
-** Install and run as a service
+* Install and run as a service
 ```shell
 sudo gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
 sudo gitlab-runner start
@@ -86,4 +86,4 @@ sudo docker run hello-world
 ## Verify runner is running via GitLab
 * On the project, where you setup GitLab runner goto Settings -> CICD -> Runners (Expand)
 * If all the steps have succeeded, then you should see a green symbol next to the runner that you created.
-![Alt text](image-1.png)
+![See green indicator next to your runner](image-1.png)

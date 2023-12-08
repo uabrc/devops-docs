@@ -40,15 +40,15 @@ sudo gitlab-runner start
 ### Register runner
 * From the `Register runner` page copy the code from 1st step:
 ```shell
-gitlab-runner register  --url $GITLAB_INSTANCE_URL  --token $TOKEN
+sudo gitlab-runner register  --url $GITLAB_INSTANCE_URL  --token $TOKEN
 ```
 * While registering the runner, give the local name for your runner.
 * You can choose any executor for the runner, in this case we would choose docker as the executor.
 
-### Verify runner is running
+### Start runner
 You can manually verify that the runner is available to pick up jobs.
 ```shell
-gitlab-runner run
+sudo gitlab-runner start
 ```
 
 ### Install docker engine on runner

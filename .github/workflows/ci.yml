@@ -7,7 +7,7 @@ on:
       - main
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v3
@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install environment
-        uses: mamba-org/provision-with-micromamba@main
+        uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: build_env.yml
           environment-name: build

@@ -31,6 +31,19 @@ I've passed this request along to our Ops team who should be able to create your
 
 ### LTS Account Request
 
+Cloud accounts must be created by Clyde or John as of now and is not linked with SSO. Go through the following steps:
+
+1. Create a [task](#addendum-creating-a-servicenow-task) on the ticket giving the BlazerID or XIAS name for the person requesting the account. Commonly looks like `Create Cloud account for <blazerid_or_XIAS@host.edu>`. All personal accounts should include the email host (`@uab.edu` or otherwise)
+2. Copy the task link from the main ticket page (looks like `TASK0000000`) and put in the Slack tickets channel something like `@rc-ops-grp <task_id> Request to create cloud account for <blazerid_or_XIAS@host.edu>`. Make sure the task is an actual link to the task to make it easier on Ops.
+
+**Canned Response**:
+
+```text
+Hi,
+
+I've passed this request along to our Ops team who should be able to create your account shortly. You will receive an email with a set of access keys and instructions on how to use the account. Please visit our documentation at https://docs.rc.uab.edu/data_management/lts/ to familiarize yourself with LTS. If you run into any issues, feel free to let us know in a new ticket. Thank you
+```
+
 ## Software Installation
 
 1. Check conda for software package, google `conda <software_name>`

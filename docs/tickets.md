@@ -10,9 +10,9 @@ All UAB users can request their own Cheaha account by going to [https://rc.uab.e
 
 **Canned Response**:
 
->Hi,
+> Hi,
 >
->All UAB students, faculty, and staff can create their own Cheaha account by going to https://rc.uab.edu and filling out a short form. Once the form is complete, your account will be immediately ready for use. All accounts have 5 TB of personal space on the cluster. Please read through our Cheaha documentation at https://docs.rc.uab.edu/cheaha/getting_started/ to familiarize yourself with how the cluster operates. If you are able to create your account or run into any errors, please let us know in this ticket. Thank you
+> All UAB students, faculty, and staff can create their own Cheaha account by going to https://rc.uab.edu and filling out a short form. Once the form is complete, your account will be immediately ready for use. All accounts have 5 TB of personal space on the cluster. Please read through our Cheaha documentation at https://docs.rc.uab.edu/cheaha/getting_started/ to familiarize yourself with how the cluster operates. If you are able to create your account or run into any errors, please let us know in this ticket. Thank you
 
 ### Cloud Account Request
 
@@ -23,9 +23,9 @@ Cloud accounts must be created by Clyde or John as of now and is not linked with
 
 **Canned Response**:
 
->Hi,
+> Hi,
 >
->I've passed this request along to our Ops team who should be able to create your account shortly. You will receive an email with instructions on how to activate the account and set your password once it's created. Cloud.RC is not currently connected to UAB's single sign-on so you can choose the same or different password from your BlazerID or XIAS account. Please go to our documentation at https://docs.rc.uab.edu/uab_cloud/ to familiarize yourself with Cloud. There is a tutorial on required setup steps before you're able to create any virtual machines. If you run into any issues, feel free to let us know in a new ticket. Thank you
+> I've passed this request along to our Ops team who should be able to create your account shortly. You will receive an email with instructions on how to activate the account and set your password once it's created. Cloud.RC is not currently connected to UAB's single sign-on so you can choose the same or different password from your BlazerID or XIAS account. Please go to our documentation at https://docs.rc.uab.edu/uab_cloud/ to familiarize yourself with Cloud. There is a tutorial on required setup steps before you're able to create any virtual machines. If you run into any issues, feel free to let us know in a new ticket. Thank you
 
 ### LTS Account Request
 
@@ -36,17 +36,28 @@ Cloud accounts must be created by Clyde or John as of now and is not linked with
 
 **Canned Response**:
 
->Hi,
+> Hi,
 >
->I've passed this request along to our Ops team who should be able to create your account shortly. You will receive an email with a set of access keys and instructions on how to use the account. Please visit our documentation at https://docs.rc.uab.edu/data_management/lts/ to familiarize yourself with LTS. If you run into any issues, feel free to let us know in a new ticket. Thank you
+> I've passed this request along to our Ops team who should be able to create your account shortly. You will receive an email with a set of access keys and instructions on how to use the account. Please visit our documentation at https://docs.rc.uab.edu/data_management/lts/ to familiarize yourself with LTS. If you run into any issues, feel free to let us know in a new ticket. Thank you
 
 ## Shared Space Requests
+
+General rules for shared spaces across Cheaha, Cloud, and LTS:
+
+- Each PI is always allowed one shared space on each platform for their lab, same for cores.
+    - If a PI is also a core director, they are allowed to have a shared space for each on all platforms
+    - Additional shared spaces within Cheaha and LTS are currently not permitted. Additional Cloud projects may be created on a case by case basis
+- Quota increase policies vary based on the platform. See specific sections for more details.
+- Shared space creation requests must come from a PI (have title of Assistant, Associate, or Full Professor) or core director (almost always Professor title but could vary)
+    - Changes to project access must be requested either by the project owner or a data steward for that project.
 
 ### Cheaha Project Space
 
 **Example Ticket**: [RITM0694996](https://uabprod.service-now.com/nav_to.do?uri=%2Fsc_req_item.do%3Fsys_id%3Dafe0e0a81bdd0a908a7821f2b24bcbf4%26sysparm_record_target%3Dsc_req_item%26sysparm_record_row%3D50%26sysparm_record_rows%3D5439%26sysparm_record_list%3Dassignment_groupDYNAMICd6435e965f510100a9ad2572f2b47744%5Eassignment_group!%3D4a687cd637f072c0cda353b543990ea8%5EORassignment_group%3D%5EORassignment_group%3D4a687cd637f072c0cda353b543990ea8%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5Ecat_itemNOT%2BIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5EORcat_item%3D%5EORcat_itemIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5EORDERBYDESCsys_updated_on)
 
-In order to request a project space on Cheaha, the person must be a PI (have title of Assistant, Associate, or Full Professor) or core director (almost always Professor title but could vary). PIs can only own one project space unless they are also a core director. In that case, they can own the core space as well as one lab space.
+Cheaha spaces follow all of the general rules listed at the beginning of the [shared space section](#shared-space-requests).
+
+**Quota increase policy**: Quota increases are currently not approved on Cheaha for any reason due to storage constraints. If they need more space, direct them to LTS.
 
 1. Check their job title at the following places:
 
@@ -68,21 +79,93 @@ In order to request a project space on Cheaha, the person must be a PI (have tit
 
     1. Their last name + 'lab', e.g. `warrinerlab`. Make sure that project name does not already exist
 
-    2. Their BlazerID + 'lab'.
+    2. Their BlazerID + 'lab'. This is used when the requester has a last name that is already used in another lab space name, e.g. `zhang`.
 
     If they already have another name they would like, that's fine. Suggest they keep names as brief as possible to help others remember and type the name.
 
-**Space Granted Canned Response**:
+4. Make sure all users mentioned in the ticket already have a Cheaha account before putting in the request with Ops.
 
->Hi,
+    1. Can check by going opening a terminal on Cheaha and running `ls -d /data/user/[username]` for each username. If there are a bunch of users listed, you can also use a regex to list which ones exist like so `ls /data/user | grep -e '[user1]|[user2]|[user3]|...`. Go through the returned list and check which IDs are missing, if any.
+
+5. Once everything above is confirmed, create a [task](#creating-a-servicenow-task) including the requested project name, the owner, and the members. The description usually looks like `Create Cheaha project space [project_name] assigned to [owner]. Add [members]`
+
+6. Post the task ID along with the description to the `#tickets` channel adding `@rc-ops-grp`. Usually will look like `@rc-ops-grp TASK00000 Request to create Cheaha project [project_name] assigned to [owner]. Add [members]`
+
+**Canned Response (Space Approved)**:
+
+> Hi,
 >
->We can get that project space created for you. Please give us a list of BlazerIDs for the people who should have access to the space as well as the name of the space. In general, we suggest names such as [[insert suggested names]], but we can use any name you prefer. Once we get that information, we can get everything set up for you.
+> We can get that project space created for you. Please give us a list of BlazerIDs for the people who should have access to the space as well as the name of the space. In general, we suggest names such as [[insert suggested names]], but we can use any name you prefer. Once we get that information, we can get everything set up for you.
 
-**Space Rejected Canned Response (already have a project space)**:
+**Canned Response (Space Denied)**:
 
->Hi,
+> Hi,
 >
->I'm sorry, but due to storage constraints on Cheaha, we limit the number of project spaces to 1 per PI. If you need additional storage, we have our long-term storage platform available. If you don't have an account there, we can create a lab account with access to 75 TB of space. Let me know if that sounds good to you. Sorry again.
+> I'm sorry, but due to storage constraints on Cheaha, we limit the number of project spaces to 1 per PI. If you need additional storage, we have our long-term storage platform available. If you don't have an account there, we can create a lab account with access to 75 TB of space. Let me know if that sounds good to you. Sorry again.
+
+### Cloud Shared Space
+
+**Example Ticket**: [RITM0694997](https://uabprod.service-now.com/nav_to.do?uri=%2Fsc_req_item.do%3Fsys_id%3D63a72ce01b114a908a7821f2b24bcbb1%26sysparm_record_target%3Dsc_req_item%26sysparm_record_row%3D2%26sysparm_record_rows%3D57%26sysparm_record_list%3Dassignment_groupDYNAMICd6435e965f510100a9ad2572f2b47744%5Eshort_descriptionCONTAINSopenstack%5Eassignment_group!%3D4a687cd637f072c0cda353b543990ea8%5EORassignment_group%3D%5EORassignment_group%3D4a687cd637f072c0cda353b543990ea8%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5Ecat_itemNOT%2BIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5EORcat_item%3D%5EORcat_itemIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5EORDERBYDESCsys_updated_on)
+
+RC does not currently have policies for OpenStack projects, the [general rules](#shared-space-requests) apply.
+
+**Quota increase policy**: Quota increases for OpenStack are determined on a case by case basis depending on justification from the requester. Request assistance from Matt, William, or Prema.
+
+Go through the following steps to verify we can create a project:
+
+1. Make sure the requester has a professor title, is a data steward for a PI, or is a core director.
+
+2. Ask them for the name of the project as well as the BlazerIDs for anyone who needs access if not already provided. Anyone who needs access will first need to request a personal Cloud account.
+
+    1. Cloud project names typically match Cheaha project names if one exists. Check if the PI owns a Cheaha project (open a terminal on Cheaha and run the following: `ll /data/project | grep <blazerid>`) and suggest that as a Cloud project name. Same thing applies for Core projects, they are most often named after the Core itself.
+
+3. Ask `rc-ops-grp` if the requestor already has a project assigned to them or to the PI they are making the request for. Also ask if they have a personal Cloud account.
+
+    1. If they already have an assigned project, check with William, Matt, or Prema to discuss whether an additional project should be approved in this case. Be sure to ask the requestor why they need an additional project if they already have one.
+
+4. Create a [task](#creating-a-servicenow-task) on the ticket giving the project name, owner, and members. Commonly looks like `Create Cloud project <project_name> assigned to <owner>. Give <member_list> access`.
+
+5. Copy the task link from the main ticket page (looks like `TASK0000000`) and put in the Slack tickets channel along with the description. Should look something like `@rc-ops-grp TASK0000000 Request to create Cloud project <project_name> assigned to <owner>. Give <member_list> access`.
+
+**Canned Response (Space Approved)**:
+
+> Hi,
+>
+> I've gone ahead and passed along the project request to our Ops team, they will be in contact with you after the space is created. Please make sure each member of the group has requested their personal Cloud account so we can add them to the group. Cloud projects have the same quota limits as individual accounts. If a quota increase is needed for a shared space, please submit another ticket explaining the situation and we would be happy to help as much as we can. Thank you.
+
+**Canned Response (Space Denied)**:
+
+> Hi,
+>
+> It looks like you already have a Cloud project assigned to you at [project_name]. We generally permit one Cloud project per lab/core with some exceptions. If you need another distinct project space, please explain why. We can also consider increasing the base allocation for your current project if that makes more sense for your situation, we would just need a general idea of how many more resources you expect to need. Let us know and we will be happy to help as much as we can. Thanks
+
+### LTS Shared Space
+
+**Example ticket**: [RITM0693695](https://uabprod.service-now.com/nav_to.do?uri=%2Fsc_req_item.do%3Fsys_id%3De3653a4697c5c2500917316bf253afcf%26sysparm_record_target%3Dsc_req_item%26sysparm_record_row%3D5%26sysparm_record_rows%3D56%26sysparm_record_list%3Dassignment_groupDYNAMICd6435e965f510100a9ad2572f2b47744%5Eshort_descriptionCONTAINSLTS%5Eassignment_group!%3D4a687cd637f072c0cda353b543990ea8%5EORassignment_group%3D%5EORassignment_group%3D4a687cd637f072c0cda353b543990ea8%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5Ecat_itemNOT%2BIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5EORcat_item%3D%5EORcat_itemIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5EORDERBYDESCsys_updated_on)
+
+LTS shared spaces follow the [same general rules](#shared-space-requests) as Cheaha project spaces.
+
+**Quota increase policy**: In order to increase an LTS project quota, a new node needs to be purchased by the lab or core. The node will be sold at cost determined by the manufacturer and will increase the quota to 133 TB. Nodes are supported for 5 year terms after which the node will need to be replaced at cost by the lab. Quotes can be requested at any time before committing to a purchase.
+
+Go through the following steps to verify we can create a project:
+
+1. Make sure the requester has a professor title, is a data steward for a PI, or is a core director.
+
+2. Check if they or the PI in case the requester is a data steward already owns a project space on Cheaha (open a terminal on Cheaha and run the following: `ll /data/project | grep <blazerid>`). If they do, propose the same name for the LTS project. If they do not, request a name for the space and if they would also like a Cheaha project created. LTS spaces are generally paired with Cheaha spaces for active and archived data or very large active datasets.
+
+3. Ask `rc-ops-grp` if the requestor already has a project assigned to them or to the PI they are making the request for. Also ask if they have a personal LTS account. If they don't have a personal LTS account, that should also be created on this ticket.
+
+4. Create a [task](#creating-a-servicenow-task) on the ticket giving the space name and owner. Will look generally like `Create LTS shared space [name] assigned to [owner]`.
+
+    1. If the requester also needs a personal account, create a separate task on the same ticket following the instructions found [above](#lts-account-request).
+
+5. Post the task(s) to `#tickets` along with the description. Will look something like `@rc-ops-grp TASK000000 Request to create LTS shared space [name] assigned to [owner]`.
+
+**Canned Response (Space Approved)**:
+
+> Hi,
+>
+> I've passed along your request to our Ops team who will contact you when the account has been created. Please read over our docs at https://docs.rc.uab.edu/data_management/lts/ to learn how to interact with LTS. The lab/core account will have separate access keys from your personal account so you will need to keep track of both sets. LTS lab/core accounts operate differently from Cheaha project spaces. You control access to every bucket in the account through policy files, you do not need to contact us to give a collaborator access to a bucket. Please read more about policy files on our LTS docs at https://docs.rc.uab.edu/data_management/lts/policies/. If you need any assistance setting up or applying the policy files, please come to our office hours on Mondays or Thursdays from 10-12 on Zoom. You can find links to those at https://docs.rc.uab.edu/#how-to-contact-us.
 
 ## Software Installation
 
@@ -116,9 +199,9 @@ It's not important to make sure the full package runs perfectly. We almost never
 
 **Canned Response**:
 
->Hi,
+> Hi,
 >
->This package is available via Anaconda. You can install it using the following commands:
+> This package is available via Anaconda. You can install it using the following commands:
 >
 > \------------------------------------------------------------------
 >
@@ -127,7 +210,7 @@ It's not important to make sure the full package runs perfectly. We almost never
 >
 > \------------------------------------------------------------------
 >
->Once the installation finishes, you'll be able to use the package using the following command: <insert tested help message command>. To use this package in other jobs, you do not need to install it again, you just need to load Anaconda3 and activate the environment created above. You can read more about Anaconda in our docs at https://docs.rc.uab.edu/workflow_solutions/using_anaconda/. Let us know if you run into any issues.
+> Once the installation finishes, you'll be able to use the package using the following command: <insert tested help message command>. To use this package in other jobs, you do not need to install it again, you just need to load Anaconda3 and activate the environment created above. You can read more about Anaconda in our docs at https://docs.rc.uab.edu/workflow_solutions/using_anaconda/. Let us know if you run into any issues.
 
 ### Singularity
 
@@ -186,7 +269,7 @@ If your searching doesn't turn up any good installation instructions and those a
 
 > Hi,
 >
->We have installed this under <insert full module name\>. You can load the module using the following command: 'module load <module\>'. Please test out the software and let us know if you run into any problems with it. Thank you
+> We have installed this under <insert full module name\>. You can load the module using the following command: 'module load <module\>'. Please test out the software and let us know if you run into any problems with it. Thank you
 
 ## Service Outage
 

@@ -57,8 +57,6 @@ General rules for shared spaces across Cheaha, Cloud, and LTS:
 
 Cheaha spaces follow all of the general rules listed at the beginning of the [shared space section](#shared-space-requests).
 
-**Quota increase policy**: Quota increases are currently not approved on Cheaha for any reason due to storage constraints. If they need more space, direct them to LTS.
-
 1. Check their job title at the following places:
 
     1. The Outlook People menu. Search for the person's name or email in the search bar and it should pull up some information on them. This is useful since it works for both UAB and UABMC email addresses.
@@ -97,7 +95,7 @@ Cheaha spaces follow all of the general rules listed at the beginning of the [sh
 >
 > We can get that project space created for you. Please give us a list of BlazerIDs for the people who should have access to the space as well as the name of the space. In general, we suggest names such as [[insert suggested names]], but we can use any name you prefer. Once we get that information, we can get everything set up for you.
 
-**Canned Response (Space Denied)**:
+**Canned Response (Space Denied Due To > 1 Project Space)**:
 
 > Hi,
 >
@@ -108,8 +106,6 @@ Cheaha spaces follow all of the general rules listed at the beginning of the [sh
 **Example Ticket**: [RITM0694997](https://uabprod.service-now.com/nav_to.do?uri=%2Fsc_req_item.do%3Fsys_id%3D63a72ce01b114a908a7821f2b24bcbb1%26sysparm_record_target%3Dsc_req_item%26sysparm_record_row%3D2%26sysparm_record_rows%3D57%26sysparm_record_list%3Dassignment_groupDYNAMICd6435e965f510100a9ad2572f2b47744%5Eshort_descriptionCONTAINSopenstack%5Eassignment_group!%3D4a687cd637f072c0cda353b543990ea8%5EORassignment_group%3D%5EORassignment_group%3D4a687cd637f072c0cda353b543990ea8%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5Ecat_itemNOT%2BIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5EORcat_item%3D%5EORcat_itemIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5EORDERBYDESCsys_updated_on)
 
 RC does not currently have policies for OpenStack projects, the [general rules](#shared-space-requests) apply.
-
-**Quota increase policy**: Quota increases for OpenStack are determined on a case by case basis depending on justification from the requester. Request assistance from Matt, William, or Prema.
 
 Go through the following steps to verify we can create a project:
 
@@ -145,8 +141,6 @@ Go through the following steps to verify we can create a project:
 
 LTS shared spaces follow the [same general rules](#shared-space-requests) as Cheaha project spaces.
 
-**Quota increase policy**: In order to increase an LTS project quota, a new node needs to be purchased by the lab or core. The node will be sold at cost determined by the manufacturer and will increase the quota to 133 TB. Nodes are supported for 5 year terms after which the node will need to be replaced at cost by the lab. Quotes can be requested at any time before committing to a purchase.
-
 Go through the following steps to verify we can create a project:
 
 1. Make sure the requester has a professor title, is a data steward for a PI, or is a core director.
@@ -166,6 +160,34 @@ Go through the following steps to verify we can create a project:
 > Hi,
 >
 > I've passed along your request to our Ops team who will contact you when the account has been created. Please read over our docs at https://docs.rc.uab.edu/data_management/lts/ to learn how to interact with LTS. The lab/core account will have separate access keys from your personal account so you will need to keep track of both sets. LTS lab/core accounts operate differently from Cheaha project spaces. You control access to every bucket in the account through policy files, you do not need to contact us to give a collaborator access to a bucket. Please read more about policy files on our LTS docs at https://docs.rc.uab.edu/data_management/lts/policies/. If you need any assistance setting up or applying the policy files, please come to our office hours on Mondays or Thursdays from 10-12 on Zoom. You can find links to those at https://docs.rc.uab.edu/#how-to-contact-us.
+
+## Shared Space Quota Increases
+
+As more data are created by our researchers, they will inevitably ask for increases to the amount of storage allocated to them on each platform as well as compute increases to Cloud account. Below are the quota increase policies for each platform in Research Computing.
+
+- **Cheaha**: Quota increases are currently not approved on Cheaha for any reason due to storage constraints. If they need more space, direct them to LTS.
+- **Cloud**: Quota increases for OpenStack are determined on a case by case basis depending on justification from the requester. Request assistance from Matt, William, or Prema.
+- **LTS**: In order to increase an LTS project quota, a new node needs to be purchased by the lab or core. The node will be sold at cost determined by the manufacturer and will increase the quota to 133 TB. Nodes are supported for 5 year terms after which the node will need to be replaced at cost by the lab. Quotes can be requested at any time before committing to a purchase.
+
+### Quota Increase Canned Responses
+
+**Cheaha**:
+
+> Hi,
+>
+> I'm sorry, but due to storage constraints on Cheaha, we are not currently increasing quota limits on Cheaha for any projects or users. If you need additional storage, we have our long-term storage platform available. If you don't have an account there, we can create a lab account with access to 75 TB of space. Let me know if you's like more information on that. Sorry again.
+
+**Cloud**:
+
+> Hi,
+>
+> We'd be happy to help as much as we can. Due to some compute and storage constraints on Cloud, please explain what the extra compute will be used for as well as an estimate of how much extra compute you believe you will need. We will talk it over with our Ops team and see if we can make it work. Let me know if you have any other questions as well.
+
+**LTS**:
+
+> Hi,
+>
+> Storage increases on LTS are possible through purchasing a full storage node. A full node has a capacity of 133 TB and is purchased at cost from Dell, our distributor. We will install the node and maintain it through its support EOL, typically 5 years. There will be no maintenance or power costs for you over that timeframe. If this option is something you would be interested in, we can ask Dell for a quote to share with you. The cost of these nodes varies over time so we don't have an accurate value for right now. Let us know what you think. Thank you
 
 ## Software Installation
 

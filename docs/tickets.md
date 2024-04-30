@@ -366,3 +366,5 @@ We like to have a record of who is submitting tickets over time which is usually
 5. If a person has an IDM entry but that entry doesn't have any information on their building or room assignment, those fields will be blank with a red star indicating you cannot update the ticket until those fields are filled in. You can just enter `?` into both of those fields.
 
 6. Once everything is filled in to ServiceNow's satisfaction, you can click `Update` in the top right to save and exit the ticket or click `Save` to save your changes and keep the ticket open if you need to reply to them.
+
+In the case where a person doesn't have an IDM entry (for instance if they are a XIAS user from a different institution), leave the field as Guest.

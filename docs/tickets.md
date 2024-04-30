@@ -317,6 +317,26 @@ If you don't see an error on either site yourself, have the user try to access O
 
 If you also see an error, pass the error type along to rc-ops-team on Slack and let them know if it's happening for just the account page or for OOD as a whole.
 
+## OOD App Specific Issues
+
+As well as having errors that affect all jobs either on the cluster or just OOD, there are app specific errors that will appear and cause some issue for the user whether it's jobs failing (seen as a disappearing job card in the `My Interactive Sessions` page) or some function of the app not working the way the user thinks it should (installation errors for R packages in RStudio for example). These errors can vary both in origination and scope, but there are logs available for every OOD job started on the cluster for you to reference if the error is not immediately obvious from the ticket.
+
+1. Ask the requester for the log files from a failed job as well as a copy of their `.bashrc` file that is loaded in every new session.
+
+    1. The `.bashrc` is located at `$HOME/.bashrc` and must be added as a plain text file to the ticket.
+
+    2. Have them follow the instructions [on our docs](https://docs.rc.uab.edu/cheaha/open_ondemand/ood_layout/#debugging-ood-job-failures) and attach a zip folder with the scripts and logs from the OOD job to the ticket. All of these files must be in a zip folder due to many of the files having a disallowed file type in SNow.
+
+    **Canned Response Asking for More Details:**
+
+    > Hi,
+    >
+    > We'd be happy to take a look. To help us, please follow the instructions at https://docs.rc.uab.edu/cheaha/open_ondemand/ood_layout/#debugging-ood-job-failures to retrieve the logs and scripts for a failed job. Zip those files and attach the zip folder to the ticket. As well, please attach your .bashrc as a plain text file to the ticket. You can find this file at $HOME/.bashrc
+
+2. Check the `output.log` file for any error messages. Also check the `bashrc` for anything that stands out as particularly wrong.
+
+3. See [common app errors](./common_app_errors.md) for further debugging instructions
+
 ## Addendums
 
 ### Creating a ServiceNow Task

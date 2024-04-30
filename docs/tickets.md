@@ -334,3 +334,35 @@ When you need DevOps to complete something in order to address a ticket, create 
 3. Click `Submit` in the top right to finish creation. The new task will appear in the Catalog Tasks section with the original task now.
 
     ![! New task has been added to the catalog tasks](res/snow_new_task.png)
+
+### Changing Ticket Requester
+
+We like to have a record of who is submitting tickets over time which is usually tracked by ServiceNow. However, if a ticket is submitted from a non `@uab.edu` email, this will cause the `Requested For` field to show up as `Guest`. Unfortunately, this also happens for `@uabmc.edu` emails as well. If the person works at UAB in any capacity whether in the main university or any of the medical centers, they will have a record in the IDM database with a BlazerID. You can change update the `Requested For` field through the following steps.
+
+1. When a request from a non `@uab.edu` email comes in, it will show like below:
+
+    ![! Ticket showing requested for as Guest](res/snow_requested_for_guest.png)
+
+    Click the information button next to the `Request` field (highlighted red above) and then click `Open Record` in the popup menu to open the Request page.
+
+2. In the Request menu, click the magnifying glass next to the `Requested For` field to open an ID search window. It will look like below.
+
+    ![! ServiceNow ID search with no one selected](res/snow_id_search_1.png)
+
+3. Use one of the Name, Blazer ID, or UAB Medicine Email fields to search for the person who submitted the ticket.
+
+    1. If you use a Name, it's possible multiple people appear if the name is common or that no one appears if the name they gave in the ticket is not their legal name entered in the database.
+
+    2. It can also be difficult to search some international names due to different naming conventions based on their heritage. For example, some Asian countries place the family name before the given name, and some other countries commonly give a person more than 3 names. Some sleuthing may be required to make sure you're selecting the right person
+
+    3. If you're in a situation where you're completely unsure which record to select, please ask the Requester for their Blazer ID. You can say it's necessary to get more information about the situation on whichever platform they are asking about as well.
+
+    See below for an example of what appears when searching someone
+
+    ![! SNow ID search with a result after searching a name](res/snow_id_search_2.png)
+
+4. Click the name in the entry you want to assign as the ticket Requester for it to autofill their name and Blazer ID in the Request screen. Set the `Source` field to `Email` (most common, may also have been a phone-in, but very rare) and click `Update` in the top right.
+
+5. If a person has an IDM entry but that entry doesn't have any information on their building or room assignment, those fields will be blank with a red star indicating you cannot update the ticket until those fields are filled in. You can just enter `?` into both of those fields.
+
+6. Once everything is filled in to ServiceNow's satisfaction, you can click `Update` in the top right to save and exit the ticket or click `Save` to save your changes and keep the ticket open if you need to reply to them.

@@ -41,3 +41,5 @@ plugins:
 
 nav:
   - Home: index.md
+  - Ticket Issues: tickets.md
+  - OOD App Debugging: ood_app_debug.md

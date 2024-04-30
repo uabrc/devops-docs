@@ -245,7 +245,6 @@ If a package or software isn't available via conda/pip, search on Dockerhub inst
 Search `<software> docker` to find potential matches on dockerhub. There may also be instructions for installing via Docker on the Github page so it helps to check there too. Containers can be created like so:
 
 ```bash
-module load Singularity
 singularity pull fmriprep.sif docker://nipreps/fmriprep
 ```
 
@@ -259,7 +258,6 @@ If the entrypoint for a container is a command-line tool, you may be able to pri
 >
 > \-----------------------------------------------------------------------------
 >
-> module load Singularity<br>
 > <insert singularity pull command\>
 >
 > \-----------------------------------------------------------------------------

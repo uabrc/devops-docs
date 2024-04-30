@@ -51,6 +51,8 @@ General rules for shared spaces across Cheaha, Cloud, and LTS:
 - Shared space creation requests must come from a PI (have title of Assistant, Associate, or Full Professor) or core director (almost always Professor title but could vary)
     - Changes to project access must be requested either by the project owner or a data steward for that project.
 
+If someone already has a shared space and is asking for a quota increase, refer to the [below section](#shared-space-quota-increases) for current policies and responses.
+
 ### Cheaha Project Space
 
 **Example Ticket**: [RITM0694996](https://uabprod.service-now.com/nav_to.do?uri=%2Fsc_req_item.do%3Fsys_id%3Dafe0e0a81bdd0a908a7821f2b24bcbf4%26sysparm_record_target%3Dsc_req_item%26sysparm_record_row%3D50%26sysparm_record_rows%3D5439%26sysparm_record_list%3Dassignment_groupDYNAMICd6435e965f510100a9ad2572f2b47744%5Eassignment_group!%3D4a687cd637f072c0cda353b543990ea8%5EORassignment_group%3D%5EORassignment_group%3D4a687cd637f072c0cda353b543990ea8%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5Ecat_itemNOT%2BIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5EORcat_item%3D%5EORcat_itemIN579212a93705a70024a67c1643990e84,61c24473db5650104ff1fd7aae961961,998fc4ec1b3aa5106bd68552604bcb3c%5Eopened_by%3De6c34574377371007114a6d2b3990e3a%5EORDERBYDESCsys_updated_on)

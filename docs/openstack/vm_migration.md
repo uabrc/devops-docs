@@ -6,7 +6,7 @@ These instructions help in facilitating migration of a virtual machine from one 
 
 Your virtual machine needs to be in Shut Down state before we start snapshotting the machine, so that there isn't a state change on the machine during the process. 
 
-You can shut down the VM through the [web interface](cloud.rc.uab.edu).
+You can shut down the VM through the [web interface](https://cloud.rc.uab.edu).
 
 ## Create a snapshot of the VM
 

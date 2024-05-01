@@ -1,6 +1,6 @@
 # Service Setup
 
-These instructions should be used when you have finished building your application on [cloud.rc](cloud.rc.uab.edu), and are ready to publish your application to be used outside campus.
+These instructions should be used when you have finished building your application on [cloud.rc](https://cloud.rc.uab.edu), and are ready to publish your application to be used outside campus.
 
 ## Firewall Exception
 When you are ready to open ports to your application instance to the world, use the following steps:

@@ -1,6 +1,6 @@
 # Archive old modules from LMOD path
 
-This is the proposed method to archive modulefiles for old softwares that we don't want visible on [Cheaha](rc.uab.edu)
+This is the proposed method to archive modulefiles for old softwares that we don't want visible on [Cheaha](https://rc.uab.edu)
 
 * Login as the ``build`` user.
 * Go to the modulefile path for that particular software. 

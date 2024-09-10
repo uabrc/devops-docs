@@ -45,6 +45,7 @@ nav:
   - Home: index.md
   - Cheaha:
     - Archiving Modules: cheaha/archiving_modules.md
+    - Contributor Guide: cheaha/contributor_guide.md
     - Shell Commands: cheaha/shell_commands.md
   - Gitlab Runner:
     - Personal Gitlab Runner Setup: gitlab_runner/personal_gitlab_runner_setup.md

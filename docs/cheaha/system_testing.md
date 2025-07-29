@@ -141,3 +141,85 @@ GROMACS 2024:
         The test quit with a non-zero exit status.
         E: There are not enough slots available in the system to satisfy the 128
 ```
+
+## GPU Performance Testing
+
+```bash
+$ srun --ntasks=12 --gres=gpu:2 --mem=100GB--time=10:00:00 --partition=amperenodes --pty /bin/bash
+$ export CUDA_VISIBLE_DEVICES=0
+```
+
+```bash
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.2.2
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+    Evaluating External Test Dependencies ..................................
+
+Phoronix Test Suite v10.8.4
+    Installed:     pts/gromacs-1.9.0
+
+GROMACS 2024:
+    pts/gromacs-1.9.0
+    System Test Configuration
+        1: MPI CPU
+        2: NVIDIA CUDA GPU
+        3: Test All Options
+        ** Multiple items can be selected, delimit by a comma. **
+        Implementation: 2
+
+System Information
+  PROCESSOR:              2 x AMD EPYC 7763 64-Core
+    Core Count:           128                                      
+    Extensions:           SSE 4.2 + AVX2 + AVX + RDRAND + FSGSBASE 
+    Cache Size:           512 MB                                   
+    Microcode:            0xa0011d3                                
+    Core Family:          Zen 3                                    
+
+  GRAPHICS:               NVIDIA A100 80GB PCIe
+    BAR1 / Visible vRAM:  131072 MiB       
+    Display Driver:       NVIDIA           
+    Screen:               1024x768         
+
+  MOTHERBOARD:            Dell 03WYW4
+    BIOS Version:         2.14.1           
+
+  MEMORY:                 512GB
+
+  DISK:                   2 x 3201GB Dell Ent NVMe CM6 MU 3.2TB + 2 x 480GB SK hynix HFS480G32FEH-BA1
+    File-System:          gpfs             
+    Disk Scheduler:       NONE             
+
+  OPERATING SYSTEM:       Ubuntu 20.04
+    Kernel:               3.10.0-1160.24.1.el7.x86_64 (x86_64) 
+    Desktop:              Xfce                                 
+    Compiler:             GCC 11.4.0 + CUDA 12.2               
+    System Layer:         docker                               
+
+GROMACS 2024:
+    pts/gromacs-1.9.0 [Implementation: NVIDIA CUDA GPU - Input: water_GMX50_bare]
+    Test 1 of 1
+    Estimated Trial Run Count:    3                     
+    Estimated Time To Completion: 5 Minutes [09:01 CDT] 
+        Started Run 1 @ 08:57:06
+        Started Run 2 @ 08:57:51
+        Started Run 3 @ 08:58:35
+
+    Implementation: NVIDIA CUDA GPU - Input: water_GMX50_bare:
+        23.93
+        23.816
+        23.791
+
+    Average: 23.846 Ns Per Day
+    Deviation: 0.31%
+```

@@ -7,48 +7,65 @@ Although the Phoronix Test Suite is available as a module on Cheaha, many indivi
 
 ## CPU Performance Testing
 
-[GROMACS](https://www.gromacs.org/) is a software package utilized for evaluating the performance of CPU systems. The following steps demonstrates how to test a node using Phoronix and GROMACS. Note that testing requires access to the entire node.
+[GROMACS](https://openbenchmarking.org/test/pts/gromacs) is a software package commonly used to evaluate the performance of High Performance Computing (HPC) systems. The GROMACS benchmark is available through the [OpenBenchmarking](https://openbenchmarking.org/) repository and can be accessed using the Phoronix Test Suite. The following steps demonstrate how to test a CPU node using Phoronix and GROMACS. 
 
-  1. To perform system testing, request for an exclusive compute node using `srun`.
+  - To perform system testing, request for an exclusive compute node using `srun`.
 
   ```bash
-  $srun --nodes=1 --ntasks-per-node=24 --mem=80GB --time=10:00:00 --partition=intel-dcb --pty /bin/bash
+  $srun --nodes=1 --ntasks-per-node=24 --mem=80GB \
+  --time=10:00:00 --partition=intel-dcb --pty /bin/bash
   ```
   
-  1. Pull the Phoronix Test Suite using Singularity by obtaining the correct path from this [registry](https://gitlab.rc.uab.edu/rc-data-science/community-containers/phoronix-test-suite-benchmarking/container_registry). For this example, you can name the image file `phoronix-latest.sif`.
+<!-- markdownlint-disable MD046 -->
+!!! note
+    Testing requires access to the entire node to ensure accurate performance measurement. This is also necessary because the benchmark utilizes all physical cores in the node, and partial allocations may lead to slot contention or failures due to insufficient available resources — a known issue reported [here](#known-issues).
+<!-- markdownlint-enable MD046 -->
 
-  ```bash
-  $singularity pull phoronix-latest.sif docker://gitlab.rc.uab.edu:4567/rc-data-science/community-containers/phoronix-test-suite-benchmarking:latest
-  ```
+
+  - Pull the Phoronix Test Suite using Singularity by copying the correct image path from this [container registry](https://gitlab.rc.uab.edu/rc-data-science/community-containers/phoronix-test-suite-benchmarking/container_registry). 
   
-  1. Run the Singularity image `phoronix-latest.sif` using the `phoronix-test-suite` executable with the `batch-setup` option for initial configuration:
+    ![!System Testing Container Image](images/system_testing_container_image.png)
+    
+    For this example, you can name the image file as `phoronix-latest.sif`.
 
-  ```bash
-  $singularity run phoronix-latest.sif phoronix-test-suite batch-setup
-  ```
+    ```bash
+    $singularity pull phoronix-latest.sif \
+    docker://gitlab.rc.uab.edu:4567/rc-data-science/community-containers/phoronix-test-suite-benchmarking:latest
+    ```
 
-  Follow the prompts to complete the setup:
+  - After pulling the container image, you can run the Phoronix Test Suite using the Singularity image `phoronix-latest.sif`. To begin, use the `batch-setup` option to configure automated test runs non-interactively.
+
+    ```bash
+    $singularity run phoronix-latest.sif phoronix-test-suite batch-setup
+    ```
+    This command launches the test suite inside the container and initiates the batch configuration process, allowing you to specify test preferences, logging, and result handling before execution.
+
+    You can follow the prompts to complete the setup:
+    
+    (i) For saving test results in batch mode, enter n (no)
+
+    ```bash
+      Save test results when in batch mode (Y/n): n
+    ```
+    
+    (ii) To run all test options, enter y (yes)
+
+    ```bash
+      Run all test options (Y/n): n
+      Batch settings saved.
+    ```
+    <!-- markdownlint-disable MD046 -->
+    !!! important
+        You can choose to save the test results in batch mode (Y) if you wish to retain them for future analysis. Additionally, when you run the benchmark later, you will be prompted to name the test result file. This name will be used to store the results and logs for that run.
+    <!-- markdownlint-enable MD046 -->
+
+  - Run the benchmark using the batch-benchmark option with GROMACS version 1.9.0.
   
-  (i) For saving test results in batch mode, enter n (no)
+    ```bash
+    $singularity run phoronix-latest.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
+    ```
 
-  ```bash
-     Save test results when in batch mode (Y/n): n
-  ```
-  
-  (ii) To run all test options, enter y (yes)
-
-  ```bash
-     Run all test options (Y/n): y
-     Batch settings saved.
-  ```
-
-  1. Run the benchmark using the batch-benchmark option with GROMACS version 1.9.0.
-  
-  ```bash
-  $singularity run phoronix-latest.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
-  ```
-
-The above command downloads the gromacs-1.9.0 suite and the required sample test, install the Gromacs suite (GROMACS 2024), and begin to perform the testing on the available resources. The below result summarizes the Gromacs performance test. The test is running on an MPI (Message Passing Interface) CPU implementation, meaning it’s using multiple processors in parallel. The simulation is using `water_GMX50_bare` as input, which is a water molecular system. You can see the test is running 3 times to ensure consistency.
+    The above command downloads the gromacs-1.9.0 suite and the required sample test, install the Gromacs suite (GROMACS 2024), and begin to perform the testing on the available resources. The below result summarizes the Gromacs performance test. The test is running on an MPI (Message Passing Interface) CPU implementation, meaning it’s using multiple processors in parallel. The simulation is using `water_GMX50_bare` as input, which is a water molecular system. You can see the test is running 3 times to ensure consistency.
 
 ### Performance Results
 
@@ -125,7 +142,8 @@ GROMACS 2024:
     Deviation: 0.63%
 ```
 
-Higher is Better: The larger the number, the faster your simulation is running. For instance, a simulation with 2.358 Ns/day will progress 2.281 nanoseconds in the simulated system for every day that passes in real time.
+Higher is B
+etter: The larger the number, the faster your simulation is running. For instance, a simulation with 2.358 Ns/day will progress 2.281 nanoseconds in the simulated system for every day that passes in real time.
 
 ```bash
 GROMACS 2024:
@@ -251,3 +269,8 @@ $ nvidia-smi
 |    0   N/A  N/A     18877      C   ...s/gromacs-1.9.0//cuda-build/bin/gmx        500MiB |
 +-----------------------------------------------------------------------------------------+
 ```
+
+### Performance Results
+
+
+### Known Issues

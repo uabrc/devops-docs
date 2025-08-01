@@ -48,7 +48,7 @@ Although the Phoronix Test Suite is available as a module on Cheaha, many indivi
       Save test results when in batch mode (Y/n): n
     ```
     
-    (ii) To run all test options, enter y (yes)
+    (ii) To avoid running all test options, enter n (no). This is recommended because the gromacs-1.9.0 benchmark includes both CPU and GPU tests. To ensure you're testing the correct environment, manually select the specific option (CPU or GPU) you want to run.
 
     ```bash
       Run all test options (Y/n): n
@@ -65,86 +65,88 @@ Although the Phoronix Test Suite is available as a module on Cheaha, many indivi
     $singularity run phoronix-latest.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
     ```
 
-    The above command downloads the gromacs-1.9.0 suite and the required sample test, install the Gromacs suite (GROMACS 2024), and begin to perform the testing on the available resources. The below result summarizes the Gromacs performance test. The test is running on an MPI (Message Passing Interface) CPU implementation, meaning it’s using multiple processors in parallel. The simulation is using `water_GMX50_bare` as input, which is a water molecular system. You can see the test is running 3 times to ensure consistency.
+    The above command downloads the gromacs-1.9.0 suite and the required sample test, install the Gromacs suite (GROMACS 2024), and begin to perform the testing on the available resources (CPU). The below result summarizes the Gromacs performance test. The test is running on an MPI (Message Passing Interface) CPU implementation, meaning it’s using multiple processors in parallel. The simulation is using `water_GMX50_bare` as input, which is a water molecular system. You can see the test is running 3 times to ensure consistency.
 
-### Performance Results
+    <!-- markdownlint-disable MD046 -->
+    !!! note
+        When running on CPU-only nodes, the testing options will not be prompted. By default, the benchmark will automatically perform CPU-based testing in this case.
+    <!-- markdownlint-enable MD046 -->
+
+    ```bash
+    ==========
+    == CUDA ==
+    ==========
+    CUDA Version 12.2.2
+
+    Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+    This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+    By pulling and using the container, you accept the terms and conditions of this license:
+    https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+    A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+    WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+       Use the NVIDIA Container Toolkit to start this container with GPU support; see
+       https://docs.nvidia.com/datacenter/cloud-native/ .
+
+        Evaluating External Test Dependencies ..............................................................................................................................................................
+
+    Phoronix Test Suite v10.8.4
+        Installed:     pts/gromacs-1.9.0
+
+    System Information
+
+      PROCESSOR:            2 x Intel Xeon Gold 6126 @ 3.70GHz
+      Core Count:           24                                                  
+      Extensions:           SSE 4.2 + AVX512CD + AVX2 + AVX + RDRAND + FSGSBASE 
+      Cache Size:           38.5 MB                                             
+      Microcode:            0x2007006                                           
+      Core Family:          Cascade Lake                                        
+      Scaling Driver:       intel_pstate performance                            
+      GRAPHICS:             mgadrmfb
+      Screen:               1024x768         
+      MOTHERBOARD:          Dell 0H28RR
+      BIOS Version:         2.23.0           
+      MEMORY:               768GB
+      DISK:                 1000GB PERC H740P Mini
+      File-System:          gpfs             
+      Disk Scheduler:       DEADLINE         
+      OPERATING SYSTEM:     Ubuntu 20.04
+      Kernel:               3.10.0-1160.24.1.el7.x86_64 (x86_64) 
+      Compiler:             GCC 11.4.0 + CUDA 12.2               
+      System Layer:         docker                               
+
+    GROMACS 2024:
+
+        pts/gromacs-1.9.0 [Implementation: MPI CPU - Input: water_GMX50_bare]
+        Test 1 of 1
+        Estimated Trial Run Count:    3                     
+        Estimated Time To Completion: 6 Minutes [10:42 CDT] 
+            Started Run 1 @ 10:37:24
+            Started Run 2 @ 10:39:06
+            Started Run 3 @ 10:40:54
+        Implementation: MPI CPU - Input: water_GMX50_bare:
+            2.375
+            2.348
+            2.351
+        Average: 2.358 Ns Per Day
+        Deviation: 0.63%
+    ```
+
+### Results of CPU-Based Performance Testing
+
+The performance of each run is measured in nanoseconds per day (Ns/day). This metric indicates how many nanoseconds of simulation time can be computed in one day of real time. The average performance of the GROMACS simulation across the three runs is 2.358 Ns/day. The deviation of 0.63% indicates that the three runs produced very similar results, with only a small variation in performance. A low deviation suggests that the test results are consistent and reliable. Note that this metric can be useful for comparing the performance of different hardware setups or GROMACS configurations. The average performance reported is 2.358 nanoseconds per day (Ns/day). This means that, on average, your GROMACS simulation can compute 2.358 nanoseconds of simulation time in one day of real-world time.
 
 ```bash
    2.375, 2.348, 2.351
 ```
 
-The performance of each run is measured in nanoseconds per day (Ns/day). This metric indicates how many nanoseconds of simulation time can be computed in one day of real time. The average performance of the GROMACS simulation across the three runs is 2.358 Ns/day. The deviation of 0.63% indicates that the three runs produced very similar results, with only a small variation in performance. A low deviation suggests that the test results are consistent and reliable. Note that this metric can be useful for comparing the performance of different hardware setups or GROMACS configurations. The average performance reported is 2.358 nanoseconds per day (Ns/day). This means that, on average, your GROMACS simulation can compute 2.358 nanoseconds of simulation time in one day of real-world time.
-
 This shows that the system is performing consistently, with an average speed of 2.358 Ns/day, and only a small variation across runs. This means your setup is likely stable and efficient for this particular GROMACS simulation.
-
-```bash
-$ srun --nodes=1 --ntasks-per-node=24 --mem=120GB --time=10:00:00 --partition=intel-dcb --pty /bin/bash
-```
-
-```bash
-==========
-== CUDA ==
-==========
-CUDA Version 12.2.2
-
-Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-
-This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-By pulling and using the container, you accept the terms and conditions of this license:
-https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-
-WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
-   Use the NVIDIA Container Toolkit to start this container with GPU support; see
-   https://docs.nvidia.com/datacenter/cloud-native/ .
-
-    Evaluating External Test Dependencies ..............................................................................................................................................................
-
-Phoronix Test Suite v10.8.4
-    Installed:     pts/gromacs-1.9.0
-
-System Information
-
-  PROCESSOR:            2 x Intel Xeon Gold 6126 @ 3.70GHz
-  Core Count:           24                                                  
-  Extensions:           SSE 4.2 + AVX512CD + AVX2 + AVX + RDRAND + FSGSBASE 
-  Cache Size:           38.5 MB                                             
-  Microcode:            0x2007006                                           
-  Core Family:          Cascade Lake                                        
-  Scaling Driver:       intel_pstate performance                            
-  GRAPHICS:             mgadrmfb
-  Screen:               1024x768         
-  MOTHERBOARD:          Dell 0H28RR
-  BIOS Version:         2.23.0           
-  MEMORY:               768GB
-  DISK:                 1000GB PERC H740P Mini
-  File-System:          gpfs             
-  Disk Scheduler:       DEADLINE         
-  OPERATING SYSTEM:     Ubuntu 20.04
-  Kernel:               3.10.0-1160.24.1.el7.x86_64 (x86_64) 
-  Compiler:             GCC 11.4.0 + CUDA 12.2               
-  System Layer:         docker                               
-
-GROMACS 2024:
-
-    pts/gromacs-1.9.0 [Implementation: MPI CPU - Input: water_GMX50_bare]
-    Test 1 of 1
-    Estimated Trial Run Count:    3                     
-    Estimated Time To Completion: 6 Minutes [10:42 CDT] 
-        Started Run 1 @ 10:37:24
-        Started Run 2 @ 10:39:06
-        Started Run 3 @ 10:40:54
-    Implementation: MPI CPU - Input: water_GMX50_bare:
-        2.375
-        2.348
-        2.351
-    Average: 2.358 Ns Per Day
-    Deviation: 0.63%
-```
 
 Higher is B
 etter: The larger the number, the faster your simulation is running. For instance, a simulation with 2.358 Ns/day will progress 2.281 nanoseconds in the simulated system for every day that passes in real time.
 
+### Known Issues
 ```bash
 GROMACS 2024:
     pts/gromacs-1.8.0 [Implementation: MPI CPU - Input: water_GMX50_bare]
@@ -270,7 +272,6 @@ $ nvidia-smi
 +-----------------------------------------------------------------------------------------+
 ```
 
-### Performance Results
+### Results of GPU-Based Performance Testing
 
 
-### Known Issues

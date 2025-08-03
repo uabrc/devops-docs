@@ -189,8 +189,8 @@ $ srun --ntasks=12 --gres=gpu:2 --mem=100GB--time=10:00:00 \
 After acquiring the necessary GPU resources and completing the [batch setup](#container-setup) process, set the CUDA_VISIBLE_DEVICES environment variable and run the GROMACS benchmark  using Singularity with GPU support enabled via the `--nv` flag. The `--nv` flag ensures that NVIDIA GPU libraries and drivers from the host are available inside the container at runtime.
 
 ```bash
-$ export CUDA_VISIBLE_DEVICES=0
-$ singularity run --nv phoronix-gromacs.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
+$export CUDA_VISIBLE_DEVICES=0
+$singularity run --nv phoronix-gromacs.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
 ```
 
 The following showcase the results obtained from running the GROMACS 2024 GPU benchmark on an A100 node with CUDA 12.2.2. The system featured dual AMD EPYC 7763 processors with 128 cores. Across three trial runs, the benchmark achieved an average of 23.556 nanoseconds per day with minimal deviation (0.03%), indicating highly consistent and stable runs across trials. The high simulation speed shows that the A100 GPU was effectively used for computation, while the CPU efficiently handled data management and non-GPU tasks. Overall, the results demonstrate a well-balanced CPU-GPU configuration optimized for high-performance molecular dynamics workloads.
@@ -313,7 +313,8 @@ GPU-based GROMACS testing on A100 nodes showed consistently high simulation perf
 When running the GROMACS 2024 GPU benchmark via the Phoronix Test Suite on Pascal-based GPU nodes (pascalnodes and pascalnodes-medium), the following error was encountered:
 
 ```bash 
-[pts/gromacs-1.9.0 Implementation: NVIDIA CUDA GPU - Input: water_GMX50_bare] NVIDIA CUDA support is not available.
+[pts/gromacs-1.9.0 Implementation: NVIDIA CUDA GPU - Input: water_GMX50_bare] 
+NVIDIA CUDA support is not available.
 ```
 
 This indicates that the test could not detect or initialize CUDA GPU support.  The likely reason for this failure is that GROMACS 2024 was compiled with CUDA 12.2.2, which requires a GPU with Compute Capability > 6.1.
@@ -322,7 +323,7 @@ Pascal nodes have Compute Capability 6.0, which is no longer supported by CUDA 1
 To address this issue for now, please run GPU testing on one of the `amperenode` partitions until we develop and test a separate container using CUDA 12.0 or lesser to enable compatibility with Pascal nodes.
 
 
-(ii) Running GROMACS on Multiple GPUs Failure
+(ii) Running GROMACS on Multi-GPU Failure
 
 When running GROMACS on multiple GPUs (2 GPUs), the program needs some time to adjust and optimize certain calculations i.e., PME (Particle Mesh Ewald) tuning. This tuning requires careful synchronization across all GPUs. The following error message means the program tried to restart its internal tracking too soon—before this tuning was finished—which caused it to crash.
 

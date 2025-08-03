@@ -137,29 +137,28 @@ The benchmark was run on a system (intel-dcb partition) with 2 Intel Xeon Gold 6
 
 ### Results of CPU-Based Performance Testing
 
-Benchmarks for CPU-based testing were evaluated using the following key performance metrics:
+The GROMACS performance test was executed using MPI on a multi-core CPU setup, running three benchmark trials to ensure consistency. Benchmarks were evaluated using the following key performance metrics:
 
 {{ read_csv('cheaha/res/cpu_perf_test.csv', keep_default_na=False) }}
 
+These metrics provide a reliable foundation for comparing node types, diagnosing bottlenecks, and assessing the scalability of the simulation environment. They are especially useful when evaluating different hardware configurations or GROMACS versions.
 
-(i) Simulation Speed (ns/day) – Measures throughput and overall performance.
+A crucial performance indicator is the Simulation Speed (ns/day), which reflects how fast the simulation progresses. For instance, a speed of 2.3 ns/day means the system can simulate 2.3 nanoseconds of molecular behavior in one real-world day. Therefore, higher values indicate faster simulation and better overall performance.
 
-(ii) Standard Deviation (%) – Assesses variability across runs.
-
-(iii) Wall-Clock Time (seconds) – Captures total execution time.
-
-(iv) Parallel Efficiency (%) – Evaluates how effectively parallelism is utilized.
-
-These metrics provide a consistent basis for comparing node types and identifying potential bottlenecks in the
-system performance.
-
-
-This metric is particularly useful for comparing performance across different hardware setups or GROMACS configurations. In general, a higher number of Ns/day means your simulation is running faster. For example, if your result is 2.3 Ns/day, it means the system can simulate 2.3 nanoseconds of molecular activity in one real-world day. So, the bigger the number, the less time it takes to run the simulation.
+The results demonstrate highly efficient parallel performance, minimal load imbalance, and stable simulation speed all of which are strong indicators of an optimized CPU-based GROMACS environment. This confirms the environment is well-optimized for CPU-bound molecular dynamics simulations using GROMACS.
 
 ### Known Issues
+
+(i) Slot Allocation Failure in GROMACS Benchmark
+
+During CPU performance testing, the GROMACS benchmark fails with a `non-zero exit status` as shown below. This is because the benchmarking requests more CPU slots than were allocated. By default, it requires all physical cores of an entire node i.e., 128 MPI ranks in this case, but only 24 cores were requested on the `amd-hdr100` partition, causing the failure.
+
+To resolve this, the recommended solution is to run the benchmark on a full node with 128 cores, matching the default MPI rank count. Alternatively, to run the benchmark on a smaller allocation or customize performance testing, the test profile can be modified to reduce the number of MPI ranks accordingly.
+
+
 ```bash
 GROMACS 2024:
-    pts/gromacs-1.8.0 [Implementation: MPI CPU - Input: water_GMX50_bare]
+    pts/gromacs-1.9.0 [Implementation: MPI CPU - Input: water_GMX50_bare]
     Test 1 of 1
     Estimated Trial Run Count:    3                     
     Estimated Time To Completion: 5 Minutes [11:34 CDT] 
@@ -290,3 +289,6 @@ $ nvidia-smi
 
 
 {{ read_csv('cheaha/res/gpu_perf_test.csv', keep_default_na=False) }}
+
+
+### Known Issues

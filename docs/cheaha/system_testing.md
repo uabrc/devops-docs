@@ -3,145 +3,141 @@
 The [Phoronix Test Suite](https://openbenchmarking.org/tests) is an open-source benchmarking and comprehensive performance testing tool designed to assess and analyze the performance of hardware systems. It offers a wide range of benchmarks that cover various aspects of system performance, including CPU, GPU, memory, storage, network, file system and many more.  It provides benchmark-specific results such as simulation speed (e.g., ns/day), execution time, or throughput, depending on the test.
 
 
-Although the Phoronix Test Suite is available as a module on Cheaha, many individual benchmarks require additional dependency installations. To improve the reusability of CPU and GPU benchmarking by the UAB Research Computing (RC) team, the suite has been containerized with all necessary benchmarks and dependencies included. This approach streamlines the testing process, enabling more efficient and automated performance evaluation of the Cheaha system. The containerized version of the Phoronix Test Suite is currently available in the [Gitlab registry](https://gitlab.rc.uab.edu/rc-data-science/community-containers/phoronix-test-suite-benchmarking/container_registry) for testing. You can find the Phoronix Test Suite repository [here](https://gitlab.rc.uab.edu/rc-data-science/community-containers/phoronix-test-suite-benchmarking).
+Although the Phoronix Test Suite is available as a module on Cheaha, many individual benchmarks require additional dependency installations. To improve the reusability of CPU and GPU benchmarking by the UAB Research Computing (RC) team, the suite has been containerized with all necessary benchmarks and dependencies included. This approach streamlines the testing process, enabling more efficient and automated performance evaluation of the Cheaha system. The containerized Phoronix Test Suite with GROMACS installation is now available for testing in the [Gitlab registry](https://gitlab.rc.uab.edu/rc-data-science/community-containers/phoronix-test-suite-benchmarking/container_registry) for testing. You can access the Phoronix Test Suite repository [here](https://gitlab.rc.uab.edu/rc-data-science/community-containers/phoronix-test-suite-benchmarking).
+
+## GROMACS
+
+[GROMACS](https://openbenchmarking.org/test/pts/gromacs) is a software package commonly used to evaluate the performance of High Performance Computing (HPC) systems. The GROMACS benchmark is available through the [OpenBenchmarking](https://openbenchmarking.org/) repository and can be accessed using the Phoronix Test Suite. The following steps demonstrate how to test a CPU node using Phoronix and GROMACS.
+
+### Container Setup
+
+To begin, pull the Phoronix Test Suite using Singularity by copying the correct image path from this [container registry](https://gitlab.rc.uab.edu/rc-data-science/community-containers/phoronix-test-suite-benchmarking/container_registry). 
+  
+![!System Testing Container Image](images/system_testing_container_image.png)
+    
+For this example, you can name the image file as `phoronix-latest.sif`.
+
+```bash
+$singularity pull phoronix-latest.sif \
+docker://gitlab.rc.uab.edu:4567/rc-data-science/community-containers/phoronix-test-suite-benchmarking:latest
+```
+
+After pulling the container image, you can run the Phoronix Test Suite using the Singularity image, `phoronix-latest.sif` . First, you will need to run the `batch-setup` option to configure automated test runs non-interactively.
+
+```bash
+$singularity run phoronix-latest.sif phoronix-test-suite batch-setup
+```
+This command launches the test suite inside the container and initiates the batch configuration process, allowing you to specify test preferences, logging, and result handling before execution.
+
+You can follow the prompts to complete the setup:
+    
+  (i) For saving test results in batch mode, enter n (no)
+
+  ```bash
+  Save test results when in batch mode (Y/n): n
+  ```
+    
+  (ii) To avoid running all test options, enter n (no). This is recommended because the gromacs-1.9.0 benchmark includes both CPU and GPU tests. To ensure you are testing the correct environment, manually select the specific option (CPU or GPU) you want to run.
+
+  ```bash
+  Run all test options (Y/n): n
+  Batch settings saved.
+  ```
+<!-- markdownlint-disable MD046 -->
+!!! important
+    You can choose to save the test results in batch mode (Y) if you wish to retain them for future analysis. Additionally, when you run the benchmark later, you will be prompted to name the test result file. This name will be used to store the results and logs for that run.
+<!-- markdownlint-enable MD046 -->
 
 ## CPU Performance Testing
 
-[GROMACS](https://openbenchmarking.org/test/pts/gromacs) is a software package commonly used to evaluate the performance of High Performance Computing (HPC) systems. The GROMACS benchmark is available through the [OpenBenchmarking](https://openbenchmarking.org/) repository and can be accessed using the Phoronix Test Suite. The following steps demonstrate how to test a CPU node using Phoronix and GROMACS. 
+First, to perform CPU system testing, you will have to request for an exclusive compute node using `srun`.
 
-  - To perform system testing, request for an exclusive compute node using `srun`.
+```bash
+$srun --nodes=1 --ntasks-per-node=24 --mem=80GB \
+--time=10:00:00 --partition=intel-dcb --pty /bin/bash
+```
 
-  ```bash
-  $srun --nodes=1 --ntasks-per-node=24 --mem=80GB \
-  --time=10:00:00 --partition=intel-dcb --pty /bin/bash
-  ```
+Next, let us run the benchmark using the `batch-benchmark` option with GROMACS version 1.9.0 via Singularity:
+  
+```bash
+$singularity run phoronix-latest.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
+```
+
+This command downloads the GROMACS 1.9.0 test suite along with the necessary sample input files, installs GROMACS 2024 inside the container, and runs the benchmark using available CPU resources. The test uses an MPI (Message Passing Interface) parallel implementation, leveraging multiple CPU processors simultaneously.
   
 <!-- markdownlint-disable MD046 -->
 !!! note
-    Testing requires access to the entire node to ensure accurate performance measurement. This is also necessary because the benchmark utilizes all physical cores in the node, and partial allocations may lead to slot contention or failures due to insufficient available resources — a known issue reported [here](#known-issues).
+    (i) Testing requires access to the entire node to ensure accurate performance measurement. This is also necessary because the benchmark utilizes all physical cores in the node, and partial allocations may lead to slot contention or failures due to insufficient available resources — a known issue reported [here](#known-issues).
+    
+    (ii)When running on CPU-only nodes, the testing options will not be prompted. By default, the benchmark will automatically perform CPU-based testing in this case.
 <!-- markdownlint-enable MD046 -->
 
+```bash
+==========
+== CUDA ==
+==========
+CUDA Version 12.2.2
 
-  - Pull the Phoronix Test Suite using Singularity by copying the correct image path from this [container registry](https://gitlab.rc.uab.edu/rc-data-science/community-containers/phoronix-test-suite-benchmarking/container_registry). 
-  
-    ![!System Testing Container Image](images/system_testing_container_image.png)
-    
-    For this example, you can name the image file as `phoronix-latest.sif`.
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 
-    ```bash
-    $singularity pull phoronix-latest.sif \
-    docker://gitlab.rc.uab.edu:4567/rc-data-science/community-containers/phoronix-test-suite-benchmarking:latest
-    ```
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
 
-  - After pulling the container image, you can run the Phoronix Test Suite using the Singularity image `phoronix-latest.sif`. To begin, use the `batch-setup` option to configure automated test runs non-interactively.
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
 
-    ```bash
-    $singularity run phoronix-latest.sif phoronix-test-suite batch-setup
-    ```
-    This command launches the test suite inside the container and initiates the batch configuration process, allowing you to specify test preferences, logging, and result handling before execution.
+    Evaluating External Test Dependencies ..............................................................................................................................................................
 
-    You can follow the prompts to complete the setup:
-    
-    (i) For saving test results in batch mode, enter n (no)
+Phoronix Test Suite v10.8.4
+    Installed:     pts/gromacs-1.9.0
 
-    ```bash
-      Save test results when in batch mode (Y/n): n
-    ```
-    
-    (ii) To avoid running all test options, enter n (no). This is recommended because the gromacs-1.9.0 benchmark includes both CPU and GPU tests. To ensure you're testing the correct environment, manually select the specific option (CPU or GPU) you want to run.
+System Information
 
-    ```bash
-      Run all test options (Y/n): n
-      Batch settings saved.
-    ```
-    <!-- markdownlint-disable MD046 -->
-    !!! important
-        You can choose to save the test results in batch mode (Y) if you wish to retain them for future analysis. Additionally, when you run the benchmark later, you will be prompted to name the test result file. This name will be used to store the results and logs for that run.
-    <!-- markdownlint-enable MD046 -->
+  PROCESSOR:            2 x Intel Xeon Gold 6126 @ 3.70GHz
+  Core Count:           24                                                  
+  Extensions:           SSE 4.2 + AVX512CD + AVX2 + AVX + RDRAND + FSGSBASE 
+  Cache Size:           38.5 MB                                             
+  Microcode:            0x2007006                                           
+  Core Family:          Cascade Lake                                        
+  Scaling Driver:       intel_pstate performance                            
+  GRAPHICS:             mgadrmfb
+  Screen:               1024x768         
+  MOTHERBOARD:          Dell 0H28RR
+  BIOS Version:         2.23.0           
+  MEMORY:               768GB
+  DISK:                 1000GB PERC H740P Mini
+  File-System:          gpfs             
+  Disk Scheduler:       DEADLINE         
+  OPERATING SYSTEM:     Ubuntu 20.04
+  Kernel:               3.10.0-1160.24.1.el7.x86_64 (x86_64) 
+  Compiler:             GCC 11.4.0 + CUDA 12.2               
+  System Layer:         docker                               
 
-  - Run the benchmark using the batch-benchmark option with GROMACS version 1.9.0.
-  
-    ```bash
-    $singularity run phoronix-latest.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
-    ```
+GROMACS 2024:
 
-    The above command downloads the gromacs-1.9.0 suite and the required sample test, install the Gromacs suite (GROMACS 2024), and begin to perform the testing on the available resources (CPU). The below result summarizes the Gromacs performance test. The test is running on an MPI (Message Passing Interface) CPU implementation, meaning it’s using multiple processors in parallel. The simulation is using `water_GMX50_bare` as input, which is a water molecular system. You can see the test is running 3 times to ensure consistency.
+    pts/gromacs-1.9.0 [Implementation: MPI CPU - Input: water_GMX50_bare]
+    Test 1 of 1
+    Estimated Trial Run Count:    3                     
+    Estimated Time To Completion: 6 Minutes [10:42 CDT] 
+        Started Run 1 @ 10:37:24
+        Started Run 2 @ 10:39:06
+        Started Run 3 @ 10:40:54
+    Implementation: MPI CPU - Input: water_GMX50_bare:
+        2.375
+        2.348
+        2.351
+    Average: 2.358 Ns Per Day
+    Deviation: 0.63%
+```
 
-    <!-- markdownlint-disable MD046 -->
-    !!! note
-        When running on CPU-only nodes, the testing options will not be prompted. By default, the benchmark will automatically perform CPU-based testing in this case.
-    <!-- markdownlint-enable MD046 -->
-
-    ```bash
-    ==========
-    == CUDA ==
-    ==========
-    CUDA Version 12.2.2
-
-    Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-
-    This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-    By pulling and using the container, you accept the terms and conditions of this license:
-    https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-    A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-
-    WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
-       Use the NVIDIA Container Toolkit to start this container with GPU support; see
-       https://docs.nvidia.com/datacenter/cloud-native/ .
-
-        Evaluating External Test Dependencies ..............................................................................................................................................................
-
-    Phoronix Test Suite v10.8.4
-        Installed:     pts/gromacs-1.9.0
-
-    System Information
-
-      PROCESSOR:            2 x Intel Xeon Gold 6126 @ 3.70GHz
-      Core Count:           24                                                  
-      Extensions:           SSE 4.2 + AVX512CD + AVX2 + AVX + RDRAND + FSGSBASE 
-      Cache Size:           38.5 MB                                             
-      Microcode:            0x2007006                                           
-      Core Family:          Cascade Lake                                        
-      Scaling Driver:       intel_pstate performance                            
-      GRAPHICS:             mgadrmfb
-      Screen:               1024x768         
-      MOTHERBOARD:          Dell 0H28RR
-      BIOS Version:         2.23.0           
-      MEMORY:               768GB
-      DISK:                 1000GB PERC H740P Mini
-      File-System:          gpfs             
-      Disk Scheduler:       DEADLINE         
-      OPERATING SYSTEM:     Ubuntu 20.04
-      Kernel:               3.10.0-1160.24.1.el7.x86_64 (x86_64) 
-      Compiler:             GCC 11.4.0 + CUDA 12.2               
-      System Layer:         docker                               
-
-    GROMACS 2024:
-
-        pts/gromacs-1.9.0 [Implementation: MPI CPU - Input: water_GMX50_bare]
-        Test 1 of 1
-        Estimated Trial Run Count:    3                     
-        Estimated Time To Completion: 6 Minutes [10:42 CDT] 
-            Started Run 1 @ 10:37:24
-            Started Run 2 @ 10:39:06
-            Started Run 3 @ 10:40:54
-        Implementation: MPI CPU - Input: water_GMX50_bare:
-            2.375
-            2.348
-            2.351
-        Average: 2.358 Ns Per Day
-        Deviation: 0.63%
-    ```
+The benchmark was run on a system (intel-dcb partition) with 2 Intel Xeon Gold 6126 processors running at 3.70 GHz, totaling 24 CPU cores. The test utilized an MPI CPU implementation of GROMACS 2024 with the water_GMX50_bare as input, a water molecular system. The performance of the GROMACS simulation is measured in nanoseconds per day (Ns/day)—a metric that indicates how many nanoseconds of simulation time can be computed in one day of real-world time. Across three trial runs, the simulation achieved an average performance of 2.358 nanoseconds per day with very low variation (0.63% deviation), demonstrating consistent and efficient use of the available CPU cores. The following section provides a detailed breakdown of the metrics and results.
 
 ### Results of CPU-Based Performance Testing
 
 Benchmarks for CPU-based testing were evaluated using the following key performance metrics:
-
-The performance of the GROMACS simulation is measured in nanoseconds per day (Ns/day)—a metric that indicates how many nanoseconds of simulation time can be computed in one day of real-world time.
-
-Across three runs, the average performance achieved was 2.358 Ns/day, with a low deviation of 0.63%, suggesting highly consistent and reliable results. This indicates that the system is performing steadily, and your current setup is both stable and efficient for this particular simulation.
-
-This metric is particularly useful for comparing performance across different hardware setups or GROMACS configurations. In general, a higher number of Ns/day means your simulation is running faster. For example, if your result is 2.3 Ns/day, it means the system can simulate 2.3 nanoseconds of molecular activity in one real-world day. So, the bigger the number, the less time it takes to run the simulation.
 
 {{ read_csv('cheaha/res/cpu_perf_test.csv', keep_default_na=False) }}
 
@@ -156,6 +152,9 @@ This metric is particularly useful for comparing performance across different ha
 
 These metrics provide a consistent basis for comparing node types and identifying potential bottlenecks in the
 system performance.
+
+
+This metric is particularly useful for comparing performance across different hardware setups or GROMACS configurations. In general, a higher number of Ns/day means your simulation is running faster. For example, if your result is 2.3 Ns/day, it means the system can simulate 2.3 nanoseconds of molecular activity in one real-world day. So, the bigger the number, the less time it takes to run the simulation.
 
 ### Known Issues
 ```bash
@@ -177,7 +176,11 @@ GROMACS 2024:
 
 ```bash
 $ srun --ntasks=12 --gres=gpu:2 --mem=100GB--time=10:00:00 --partition=amperenodes --pty /bin/bash
+```
+
+```
 $ export CUDA_VISIBLE_DEVICES=0
+$ singularity run --nv phoronix-gromacs.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
 ```
 
 ```bash

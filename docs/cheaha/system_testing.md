@@ -67,7 +67,7 @@ This command downloads the GROMACS 1.9.0 test suite along with the necessary sam
   
 <!-- markdownlint-disable MD046 -->
 !!! note
-    (i) Testing requires access to the entire node to ensure accurate performance measurement. This is also necessary because the benchmark utilizes all physical cores in the node, and partial allocations may lead to slot contention or failures due to insufficient available resources — a known issue reported [here](#known-issues).
+    (i) Testing requires access to the entire node to ensure accurate performance measurement. This is also necessary because the benchmark utilizes all physical cores in the node, and partial allocations may lead to slot contention or failures due to insufficient available resources — a known issue reported [here](#cpu-testing-known-issues).
     
     (ii)When running on CPU-only nodes, the testing options will not be prompted. By default, the benchmark will automatically perform CPU-based testing in this case.
 <!-- markdownlint-enable MD046 -->
@@ -147,7 +147,7 @@ A crucial performance indicator is the Simulation Speed (ns/day), which reflects
 
 The results demonstrate highly efficient parallel performance, minimal load imbalance, and stable simulation speed all of which are strong indicators of an optimized CPU-based GROMACS environment. This confirms the environment is well-optimized for CPU-bound molecular dynamics simulations using GROMACS.
 
-### Known Issues
+### CPU Testing: Known Issues
 
 (i) Slot Allocation Failure in GROMACS Benchmark
 
@@ -173,14 +173,27 @@ GROMACS 2024:
 
 ## GPU Performance Testing
 
+To perform GPU system testing you will have to request for a compute node requesting 2 GPUs. 
 ```bash
-$ srun --ntasks=12 --gres=gpu:2 --mem=100GB--time=10:00:00 --partition=amperenodes --pty /bin/bash
+$ srun --ntasks=12 --gres=gpu:2 --mem=100GB--time=10:00:00 \
+--partition=amperenodes --pty /bin/bash
 ```
 
-```
+<!-- markdownlint-disable MD046 -->
+!!! important
+    (i) GPU testing has been successful on A100 nodes, ie., the `amperenodes` and `amperenodes-medium` partitions. For more details, see the known issue reported [here](#gpu-testing-known-issues). Until compatibility on Pascal nodes is confirmed, you can run GPU tests on `amperenodes` partitions.
+    (ii) Multi-GPU (>1GPU) runs currently fail due to PME (Particle Mesh Ewald) tuning conflicts at the reset step. As a workaround, run simulations on a single GPU for now. Refer to this [issue](#gpu-testing-known-issues) for more details.
+
+<!-- markdownlint-enable MD046 -->
+
+After acquiring the necessary GPU resources and completing the [batch setup](#container-setup) process, set the CUDA_VISIBLE_DEVICES environment variable and run the GROMACS benchmark  using Singularity with GPU support enabled via the `--nv` flag. The `--nv` flag ensures that NVIDIA GPU libraries and drivers from the host are available inside the container at runtime.
+
+```bash
 $ export CUDA_VISIBLE_DEVICES=0
 $ singularity run --nv phoronix-gromacs.sif phoronix-test-suite batch-benchmark gromacs-1.9.0
 ```
+
+The following showcase the results obtained from running the GROMACS 2024 GPU benchmark on an A100 node with CUDA 12.2.2. The system featured dual AMD EPYC 7763 processors with 128 cores. Across three trial runs, the benchmark achieved an average of 23.556 nanoseconds per day with minimal deviation (0.03%), indicating highly consistent and stable runs across trials. The high simulation speed shows that the A100 GPU was effectively used for computation, while the CPU efficiently handled data management and non-GPU tasks. Overall, the results demonstrate a well-balanced CPU-GPU configuration optimized for high-performance molecular dynamics workloads.
 
 ```bash
 ==========
@@ -257,9 +270,10 @@ GROMACS 2024:
     Deviation: 0.03%
 ```
 
+GPU usage and activity can be monitored with `nvidia-smi`, which shows real-time GPU memory use, utilization %, and running processes. If you see GPU utilization increasing during a GROMACS run, it means the GPU is actively working. The below `nvidia-smi` output indicates that the system has two NVIDIA A100 80GB GPUs. GPU 0 is actively running a GROMACS process (gmx), using approximately 1074 MiB of GPU memory and 94% GPU utilization.
+
 ```bash
 $ nvidia-smi
-
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.4     |
 |-----------------------------------------+------------------------+----------------------+
@@ -268,11 +282,11 @@ $ nvidia-smi
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
 |   0  NVIDIA A100 80GB PCIe          On  |   00000000:25:00.0 Off |                    0 |
-| N/A   32C    P0             60W /  300W |     501MiB /  81920MiB |      0%      Default |
+| N/A   39C    P0             64W /  300W |    1083MiB /  81920MiB |     94%      Default |
 |                                         |                        |             Disabled |
 +-----------------------------------------+------------------------+----------------------+
 |   1  NVIDIA A100 80GB PCIe          On  |   00000000:81:00.0 Off |                    0 |
-| N/A   30C    P0             43W /  300W |       1MiB /  81920MiB |      0%      Default |
+| N/A   31C    P0             43W /  300W |       1MiB /  81920MiB |      0%      Default |
 |                                         |                        |             Disabled |
 +-----------------------------------------+------------------------+----------------------+
                                                                                          
@@ -281,14 +295,41 @@ $ nvidia-smi
 |  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
 |        ID   ID                                                               Usage      |
 |=========================================================================================|
-|    0   N/A  N/A     18877      C   ...s/gromacs-1.9.0//cuda-build/bin/gmx        500MiB |
+|    0   N/A  N/A     82610      C   ...s/gromacs-1.9.0//cuda-build/bin/gmx       1074MiB |
 +-----------------------------------------------------------------------------------------+
 ```
 
 ### Results of GPU-Based Performance Testing
 
+GPU-based GROMACS testing on A100 nodes showed consistently high simulation performance, achieving ~23.55 ns/day. The high parallel efficiency (~1199%) reflects the total core time accumulated across 12 CPU cores, compared to the actual elapsed wall time (~14.67 seconds). This indicates strong CPU utilization alongside efficient GPU acceleration. This setup offers a well-balanced configuration for fast, large-scale molecular dynamics simulations.
 
 {{ read_csv('cheaha/res/gpu_perf_test.csv', keep_default_na=False) }}
 
 
-### Known Issues
+### GPU Testing: Known Issues
+
+(i) GROMACS GPU Benchmark Failure on Pascal Nodes
+
+When running the GROMACS 2024 GPU benchmark via the Phoronix Test Suite on Pascal-based GPU nodes (pascalnodes and pascalnodes-medium), the following error was encountered:
+
+```bash 
+[pts/gromacs-1.9.0 Implementation: NVIDIA CUDA GPU - Input: water_GMX50_bare] NVIDIA CUDA support is not available.
+```
+
+This indicates that the test could not detect or initialize CUDA GPU support.  The likely reason for this failure is that GROMACS 2024 was compiled with CUDA 12.2.2, which requires a GPU with Compute Capability > 6.1.
+
+Pascal nodes have Compute Capability 6.0, which is no longer supported by CUDA 12.2 and newer. As a result, CUDA support is unavailable when running on Pascal-based GPUs. Refer to the official [CUDA support matrix](https://docs.nvidia.com/deeplearning/cudnn/backend/latest/reference/support-matrix.html) for more details.
+To address this issue for now, please run GPU testing on one of the `amperenode` partitions until we develop and test a separate container using CUDA 12.0 or lesser to enable compatibility with Pascal nodes.
+
+
+(ii) Running GROMACS on Multiple GPUs Failure
+
+When running GROMACS on multiple GPUs (2 GPUs), the program needs some time to adjust and optimize certain calculations i.e., PME (Particle Mesh Ewald) tuning. This tuning requires careful synchronization across all GPUs. The following error message means the program tried to restart its internal tracking too soon—before this tuning was finished—which caused it to crash.
+
+```bash
+Fatal error:
+PME tuning was still active when attempting to reset mdrun counters at step
+2000. Try resetting counters later in the run, e.g. with gmx mdrun -resetstep.
+```
+
+To fix the issue, for now, it is recommended to run the simulation on a single GPU to monitor GPU system performance without causing the PME tuning error. If multi-GPU testing is essential, you may experiment with the `-resetstep` option in gmx mdrun to manually set the counter to a particular step and reset point after PME tuning completes. Further investigation and testing are needed to determine a stable multi-GPU configuration.

@@ -135,16 +135,27 @@ Although the Phoronix Test Suite is available as a module on Cheaha, many indivi
 
 ### Results of CPU-Based Performance Testing
 
-The performance of each run is measured in nanoseconds per day (Ns/day). This metric indicates how many nanoseconds of simulation time can be computed in one day of real time. The average performance of the GROMACS simulation across the three runs is 2.358 Ns/day. The deviation of 0.63% indicates that the three runs produced very similar results, with only a small variation in performance. A low deviation suggests that the test results are consistent and reliable. Note that this metric can be useful for comparing the performance of different hardware setups or GROMACS configurations. The average performance reported is 2.358 nanoseconds per day (Ns/day). This means that, on average, your GROMACS simulation can compute 2.358 nanoseconds of simulation time in one day of real-world time.
+Benchmarks for CPU-based testing were evaluated using the following key performance metrics:
 
-```bash
-   2.375, 2.348, 2.351
-```
+The performance of the GROMACS simulation is measured in nanoseconds per day (Ns/day)—a metric that indicates how many nanoseconds of simulation time can be computed in one day of real-world time.
 
-This shows that the system is performing consistently, with an average speed of 2.358 Ns/day, and only a small variation across runs. This means your setup is likely stable and efficient for this particular GROMACS simulation.
+Across three runs, the average performance achieved was 2.358 Ns/day, with a low deviation of 0.63%, suggesting highly consistent and reliable results. This indicates that the system is performing steadily, and your current setup is both stable and efficient for this particular simulation.
 
-Higher is B
-etter: The larger the number, the faster your simulation is running. For instance, a simulation with 2.358 Ns/day will progress 2.281 nanoseconds in the simulated system for every day that passes in real time.
+This metric is particularly useful for comparing performance across different hardware setups or GROMACS configurations. In general, a higher number of Ns/day means your simulation is running faster. For example, if your result is 2.3 Ns/day, it means the system can simulate 2.3 nanoseconds of molecular activity in one real-world day. So, the bigger the number, the less time it takes to run the simulation.
+
+{{ read_csv('cheaha/res/cpu_perf_test.csv', keep_default_na=False) }}
+
+
+(i) Simulation Speed (ns/day) – Measures throughput and overall performance.
+
+(ii) Standard Deviation (%) – Assesses variability across runs.
+
+(iii) Wall-Clock Time (seconds) – Captures total execution time.
+
+(iv) Parallel Efficiency (%) – Evaluates how effectively parallelism is utilized.
+
+These metrics provide a consistent basis for comparing node types and identifying potential bottlenecks in the
+system performance.
 
 ### Known Issues
 ```bash
@@ -230,18 +241,18 @@ GROMACS 2024:
     pts/gromacs-1.9.0 [Implementation: NVIDIA CUDA GPU - Input: water_GMX50_bare]
     Test 1 of 1
     Estimated Trial Run Count:    3                     
-    Estimated Time To Completion: 5 Minutes [09:01 CDT] 
-        Started Run 1 @ 08:57:06
-        Started Run 2 @ 08:57:51
-        Started Run 3 @ 08:58:35
+    Estimated Time To Completion: 4 Minutes [14:57 CDT] 
+        Started Run 1 @ 14:54:12
+        Started Run 2 @ 14:54:57
+        Started Run 3 @ 14:55:42
 
     Implementation: NVIDIA CUDA GPU - Input: water_GMX50_bare:
-        23.93
-        23.816
-        23.791
+        23.556
+        23.563
+        23.549
 
-    Average: 23.846 Ns Per Day
-    Deviation: 0.31%
+    Average: 23.556 Ns Per Day
+    Deviation: 0.03%
 ```
 
 ```bash
@@ -275,3 +286,4 @@ $ nvidia-smi
 ### Results of GPU-Based Performance Testing
 
 
+{{ read_csv('cheaha/res/gpu_perf_test.csv', keep_default_na=False) }}

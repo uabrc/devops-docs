@@ -1,0 +1,6 @@
+Metrics,Run 1,Run 2,Run 3,Description
+Core Time (s),176.051,176.004,176.107,"Total compute time summed across all cores"
+Wall Time (s),14.679,14.674,14.683,"Actual elapsed time"
+Parallel Efficiency (%) (Core Time ÷ Wall Time),1199.4,1199.4,1199.4,"Calculated as Core Time ÷ Wall Time. Higher values mean better CPU core usage."
+Simulation Speed (ns/day),23.556,23.563,23.549,"Real simulation time (in nanoseconds) performed per day"
+Simulation Time per Nanosecond (hr/ns),1.019,1.019,1.019,"Time to simulate 1 ns of your system. Lower is better performance"

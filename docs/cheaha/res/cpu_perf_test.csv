@@ -1,0 +1,7 @@
+Metrics,Run 1,Run 2,Run 3,Description
+Core Time (s),874.88,885.073,883.798,"Total compute time summed across all cores"
+Wall Time (s),36.458,36.878,36.826,"Actual elapsed time"
+Parallel Efficiency (%),2399.7,2400.0,2399.9,"Calculated as Core Time ÷ Wall Time. Higher values indicate more efficient CPU core usage."
+Simulation Speed (ns/day),2.375,2.348,2.351,"Real simulation time (in nanoseconds) performed per day"
+Simulation Time per Nanosecond (hr/ns),10.107,10.224,10.209,"Time it takes to simulate 1 ns of your system in real-world hours. Lower is better performnace."
+Avg. Load Imbalance (%),0.9,1.4,1.1,"Measures how evenly computation is distributed across threads/cores. Lower is better performance."

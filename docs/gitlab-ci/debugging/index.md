@@ -37,8 +37,8 @@ debug_example_job:
 
 !!! note
 
-    - Debug trace applies only to `debug_example_job`; other jobs in the pipeline run with normal logging.
-    - To turn debug off for this job, either remove `CI_DEBUG_TRACE` or set it to `"false"` and re-run the pipeline.
+- Debug trace applies only to `debug_example_job`; other jobs in the pipeline run with normal logging.
+- To turn debug off for this job, either remove `CI_DEBUG_TRACE` or set it to `"false"` and re-run the pipeline.
 
 ### Enable debug for the whole pipeline
 

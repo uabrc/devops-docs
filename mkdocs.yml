@@ -61,13 +61,7 @@ plugins: # order matters!
         - scripts/pandoc_generator.py
   - git-revision-date-localized:
       type: date
-      strict: false
   - glightbox
-  - table-reader:
-      data_path: docs
-  - title-casing
-  - redirects:
-      redirect_maps:
 
 nav:
   - Home: index.md
@@ -81,6 +75,7 @@ nav:
   - Openstack:
       - VM Migration: openstack/vm_migration.md
       - VM Service Setup: service/service_setup.md
+  - Ticket Issues: tickets.md
 
 validation:
   nav:

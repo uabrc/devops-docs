@@ -33,6 +33,7 @@ for job in 15202444 15202445 15202446; do
   scontrol show job $job | grep TimeLimit | awk '{print $2}'
 done
 ```
+
 **Note:** Job Arrays can't be incremented / decremented and must modified with absolute runtimes. For example, to extend a job with a `TimeLimit` of 1 day 2 hours by an additional day, you would use `TimeLimit=2-02:00:00`
 
 ## Fix User Directories and Slurm Account
@@ -51,7 +52,7 @@ for user in `echo $users` ; do
   echo $user
   sudo /cm/shared/apps/slurm/current/bin/sacctmgr --immediate add Account $user
   sudo /cm/shared/apps/slurm/current/bin/sacctmgr --immediate add User Accounts=$user $user
-  
+
   dir=/home/$user
   if [ ! -d $dir ]; then
     echo "Creating directory $dir"
@@ -74,7 +75,7 @@ for user in `echo $users` ; do
       sudo chmod 700 $dir
     fi
   done
-  
+
   for dir in /home/$user /data/user/$user /scratch/$user /data/temporary-scratch/$user; do
     ls -ld $dir
   done

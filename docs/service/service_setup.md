@@ -3,14 +3,16 @@
 These instructions should be used when you have finished building your application on [cloud.rc](https://cloud.rc.uab.edu), and are ready to publish your application to be used outside campus.
 
 ## Firewall Exception
+
 When you are ready to open ports to your application instance to the world, use the following steps:
-* Go [here](https://uabprod.service-now.com/service_portal?id=sc_home)
-* Click on Security Exception (Firewall Rule Change).
-* Fill out the form:
-  
+
+- Go to the [UAB ServiceNow Portal](https://uabprod.service-now.com/service_portal?id=sc_home)
+- Click on Security Exception (Firewall Rule Change).
+- Fill out the form:
+
     `Requester BlazerID`
 
-    Fill out your blazerid. If you're making the request on someone else's behalf then use their blazerid.
+    Fill out your BlazerID. If you're making the request on someone else's behalf then use their BlazerID.
 
     `Application Name`
 
@@ -38,11 +40,11 @@ When you are ready to open ports to your application instance to the world, use 
 
     `System/Application Information`
 
-    Check all that apply. 
+    Check all that apply.
 
     `What type of sensitive or restricted data is stored or processed?`
 
-    Check all that apply. 
+    Check all that apply.
 
     `Select number of months needed for exception`
 
@@ -52,9 +54,8 @@ When you are ready to open ports to your application instance to the world, use 
 
     Specify the reason you want to apply for security exception, and how the application would be used.
 
-* Hit ``Submit`` button.
+- Hit ``Submit`` button.
 
+## DNS Record Setup
 
-## DNS Record setup
 Email [AskIT](mailto:askit@uab.edu?subject=DNS%20Request), and specify that you want to create a new A record for the IP address of you instance, and the DNS entry you requested a SSL certificate for.
-

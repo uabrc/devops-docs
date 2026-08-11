@@ -1,5 +1,6 @@
 site_name: UAB Research Computing DevOps Docs
 repo_url: https://github.com/uabrc/devops-docs
+edit_uri: blob/main/docs/
 
 theme:
   name: material
@@ -9,11 +10,20 @@ theme:
   features:
     - navigation.indexes
     - navigation.instant
+    - content.code.copy
+    - content.action.edit
+  favicon: images/favicon.png
+  logo: images/logo.png
 
 extra_css:
   - stylesheets/extra.css
 
-copyright: Copyright &copy; 2021-2022 The University of Alabama at Birmingham.<br /><b>Still stuck after reading?</b> Email us at <a href="mailto:support@listserv.uab.edu" class="supportemail">support@listserv.uab.edu</a>
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+copyright: Copyright &copy; The University of Alabama at Birmingham.
 
 markdown_extensions:
   - admonition
@@ -31,24 +41,57 @@ markdown_extensions:
       permalink: true
 
 plugins:
+  # order matters!
   - search
-  - table-reader:
-      data_path: docs
+  - meta
+  - blog:
+      archive_date_format: MMMM yyyy
+      archive_url_date_format: yyyy/MM
+      blog_dir: news
+      blog_toc: true
+      post_date_format: full
+      post_excerpt: required
+      post_readtime: false
+      categories_allowed:
+        - Known Issues
+        - Maintenance
+        - Outreach
+        - Survey
+  - gen-files:
+      scripts:
+        - scripts/pandoc_generator.py
   - git-revision-date-localized:
       type: date
-  - glightbox:
-      # auto_caption: true
-  - redirects:
-      redirect_maps:
+  - glightbox
 
 nav:
   - Home: index.md
   - Cheaha:
-    - Archiving Modules: cheaha/archiving_modules.md
-    - Shell Commands: cheaha/shell_commands.md
-    - Ticket Management: cheaha/ticket_management.md
+      - Archiving Modules: cheaha/archiving_modules.md
+      - Shell Commands: cheaha/shell_commands.md
+      - Ticket Management: cheaha/ticket_management.md
   - Gitlab Runner:
-    - Personal Gitlab Runner Setup: gitlab_runner/personal_gitlab_runner_setup.md
+      - Personal Gitlab Runner Setup: gitlab_runner/personal_gitlab_runner_setup.md
   - Openstack:
-    - VM Migration: openstack/vm_migration.md
-    - VM Service Setup: service/service_setup.md
+      - VM Migration: openstack/vm_migration.md
+      - VM Service Setup: service/service_setup.md
+      - Share Openstack Image: openstack/share_image.md
+  - Identity:
+      - Saml: saml/saml.md
+      - SP Metadata Generation: saml/create-sp-metadata.md
+  - Ticket Issues: tickets.md
+
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn
+
+watch:
+  - scripts
+  - theme

@@ -1,6 +1,6 @@
 # Standard Operating Procedure (SoP) for Ticket Management and Closure
 
-This Standard Operating Procedure establishes a consistent process for managing support tickets, following up with users, and closing inactive tickets in a timely manner. The goal is to ensure users receive prompt responses 
+This Standard Operating Procedure establishes a consistent process for managing support tickets, following up with users, and closing inactive tickets in a timely manner. The goal is to ensure users receive prompt responses
 while preventing unresolved or inactive tickets from remaining open indefinitely. This procedure applies to all support tickets assigned to the team, including technical support requests, access requests, service questions, and other user inquiries.
 
 ## Procedure
@@ -9,7 +9,7 @@ while preventing unresolved or inactive tickets from remaining open indefinitely
 
 Upon receipt of a new ticket, the assigned team member should review the request and provide an initial response as soon as reasonably possible.
 The response should either:
-  
+
 - Provide a solution or the requested information
 - Ask for additional information needed to investigate the issue
 - Provide troubleshooting steps for the user to complete
@@ -31,7 +31,7 @@ Suggested response:
   We have not received a response regarding this request, so we will be closing this ticket at this time.
   If you still need assistance with this issue, please submit a new ticket and include any relevant information or updates so we can continue assisting you.
   Regards,”
-  
+
 Closing the ticket does not prevent the user from requesting additional assistance. The user should submit a new ticket if the issue remains unresolved or occurs again.
 
 ### Maximum Ticket Inactivity Period

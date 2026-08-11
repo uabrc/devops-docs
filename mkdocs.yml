@@ -46,6 +46,7 @@ nav:
   - Cheaha:
     - Archiving Modules: cheaha/archiving_modules.md
     - Shell Commands: cheaha/shell_commands.md
+    - Ticket Management: cheaha/ticket_management.md
   - Gitlab Runner:
     - Personal Gitlab Runner Setup: gitlab_runner/personal_gitlab_runner_setup.md
   - Openstack:

@@ -58,11 +58,6 @@ class Doc:
 
 def generate() -> None:
     """Generate docs based on list supplied below."""
-    files = []
-    for f in files:
-        doc = Doc(f)
-        doc.to_plaintext()
-        doc.to_docx()
 
 
 # Do the thing.

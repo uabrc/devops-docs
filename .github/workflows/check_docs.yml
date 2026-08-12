@@ -7,7 +7,7 @@ on: # yamllint disable-line rule:truthy
     branches:
       - main
     paths:
-      - "build_env.yml"
+      - "env_build.yml"
       - "mkdocs.yml"
       - "build_scripts/**"
       - "docs/**"
@@ -24,7 +24,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0 # mkdocs-git-revision-date-localized-plugin
       - uses: "./.github/shared/build_docs_pages/"

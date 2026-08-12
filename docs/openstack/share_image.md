@@ -4,12 +4,12 @@ You can share an image from your project with a collaborator in a different proj
 
 ## Image Visibility Descriptions
 
-| Visibility | Description |
-| ---------- | ----------- |
-| public  | Any user may read the image and its data payload. Additionally, the image appears in the default image list of all users. **If you need your image to be public level, it will require a support request** |
-| community | Any user may read the image and its data payload, but the image does not appear in the default image list of any user other than the owner. |
-| shared | Only the owner and the specific image members who have been added to the image may read the image or its data payload. The image appears in the default image list of the owner. It also appears in the default image list of members who have accepted the image. Non-owners, however, will not have access to the image until they are added as image members. |
-| private (**default**) | Only the owner image may read the image or its data payload. Additionally, the image appears in the owner’s default image list. |
+| Visibility            | Description                                                                                                                                                                                                                                                                                                                                                      |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| public                | Any user may read the image and its data payload. Additionally, the image appears in the default image list of all users. **If you need your image to be public level, it will require a support request**                                                                                                                                                       |
+| community             | Any user may read the image and its data payload, but the image does not appear in the default image list of any user other than the owner.                                                                                                                                                                                                                      |
+| shared                | Only the owner and the specific image members who have been added to the image may read the image or its data payload. The image appears in the default image list of the owner. It also appears in the default image list of members who have accepted the image. Non-owners, however, will not have access to the image until they are added as image members. |
+| private (**default**) | Only the owner image may read the image or its data payload. Additionally, the image appears in the owner’s default image list.                                                                                                                                                                                                                                  |
 
 ## Prerequisites
 

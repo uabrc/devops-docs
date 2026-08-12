@@ -4,7 +4,7 @@
 
 If shibboleth is already installed and running, start at the configuration section below.
 
-### Generate a repo file
+### Generate a Repo File
 
 ```sh
 sudo su -
@@ -24,7 +24,7 @@ EOF
 yum install -y shibboleth
 ```
 
-### Start the shibd service
+### Start the `shibd` Service
 
 ```sh
 sudo systemctl start shibd.service
@@ -42,7 +42,7 @@ Its important that the last line of the output is:
 
 ## Configuration
 
-### Generate Certificate and Key for SAML message signing/encrypting
+### Generate Certificate and Key for SAML Message Signing/Encrypting
 
 The Shibboleth daemon (`shibd`) needs an X.509 keypair for signing and encrypting SAML messages. We recommend to use a dedicated self-signed certificate, independently configured from the SSL/TLS certificate used by the Web server. Checkout the [Certificate Overview](https://www.switch.ch/aai/certificates/) to better understand the role the certificates play in this context.
 
@@ -54,7 +54,7 @@ Generate the x509 certs with `keygen.sh` (Red Hat Enterprise, Rocky, CentOS):
 sudo /etc/shibboleth/keygen.sh -f -u shibd -h <YOURHOST.EXAMPLE.ORG> -y 10 -o /etc/shibboleth/
 ```
 
-### Generate the SP metadata
+### Generate the SP Metadata
 
 ```sh
 sudo /etc/shibboleth/metagen.sh -c /etc/shibboleth/sp-cert.pem -h YOURHOST.EXAMPLE.ORG > /etc/shibboleth/sp-metadata.xml

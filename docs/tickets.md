@@ -460,4 +460,3 @@ The ticket assignee is responsible for:
 - Sending required follow-up reminders
 - Documenting relevant actions in the ticket
 - Closing inactive tickets according to this procedure
-- Ensuring no inactive ticket remains open beyond one month without justification.

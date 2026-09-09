@@ -32,7 +32,7 @@ Cloud accounts are currently limited due to resource constraints, so we evaluate
 
 ### Create a ServiceNow Task
 
-1. Create a new [task](#creating-a-servicenow-task) on the ticket giving the BlazerID or XIAS name for the person requesting the account. Use `Request to create Cloud account` as the short description and `Create Cloud account for <blazerid_or_XIAS>` as the description. Omit any `@uab.edu` string for BlazerIDs, but keep the email host for XIAS accounts.
+1. Create a new [task](../../tickets.md#creating-a-servicenow-task) on the ticket giving the BlazerID or XIAS name for the person requesting the account. Use `Request to create Cloud account` as the short description and `Create Cloud account for <blazerid_or_XIAS>` as the description. Omit any `@uab.edu` string for BlazerIDs, but keep the email host for XIAS accounts.
 1. Copy the task link from the main ticket page (looks like `TASK0000000`) and put in the Slack tickets channel something like `@rc-ops-grp <task_id> Request to create cloud account for <blazerid_or_XIAS>`. Make sure the task is an actual link to the task to make it easier for Ops.
 
 ## Creating a Template in ServiceNow

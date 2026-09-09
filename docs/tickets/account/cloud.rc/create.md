@@ -11,7 +11,7 @@ Cloud accounts are currently created by the Ops team and are not linked to SSO. 
 
 ## How Do I Handle a Support Request?
 
-###  Review the Use Case and Obtain Manager Approval
+### Review the Use Case and Obtain Manager Approval
 
 Cloud accounts are currently limited due to resource constraints, each request must receive Manager approval before proceeding.
 
@@ -23,6 +23,7 @@ Cloud accounts are currently limited due to resource constraints, each request m
 Reply with the following to create intial discussion, and wait for follow-up
 
 #### Response to RC Cloud Account Request
+
 ```text
 Greeting and welcome message here ...
 

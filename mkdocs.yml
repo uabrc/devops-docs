@@ -75,6 +75,7 @@ plugins:
       strict: false
   - glightbox
   - macros:
+      module_name: macros/main
       j2_extensions:
         - jinja2_workarounds.MultiLineInclude
       on_undefined: strict
@@ -113,7 +114,7 @@ nav:
           - Research Computing System (RCS):
               - Create: tickets/account/rcs/create.md
           - Cloud.rc:
-              - tickets/account/cloud.rc/index.md
+              - Create: tickets/account/cloud.rc/create.md
       - ServiceNow Templates: tickets/snow_templates.md
       - Uncategorized: tickets/tickets.md
 

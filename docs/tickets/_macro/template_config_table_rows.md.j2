@@ -1,0 +1,11 @@
+{% macro config_rows(name, description) -%}
+| Configuration Field | Type      | Enabled? | Value                        |
+|---------------------|-----------|----------|------------------------------|
+| Name                | text      | yes      | {{ name }}                   |
+| User                | text      | no       | your name                    |
+| Table               | drop-down | yes      | Requested Item [sc_req_item] |
+| Groups              | text      | no       | --                           |
+| Active              | checkbox  | yes      | "checked"                    |
+| Global              | checkbox  | no       | --                           |
+| Short Description   | text      | yes      | {{ description }}            |
+{%- endmacro %}

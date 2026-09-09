@@ -74,6 +74,13 @@ plugins:
       type: date
       strict: false
   - glightbox
+  - macros:
+      module_name: macros/main
+      j2_extensions:
+        - jinja2_workarounds.MultiLineInclude
+      on_undefined: strict
+      render_by_default: true
+      verbose: true
   - table-reader:
       data_path: docs
   - title-casing
@@ -102,7 +109,14 @@ nav:
   - Identity:
       - Saml: saml/saml.md
       - SP Metadata Generation: saml/create-sp-metadata.md
-  - Ticket Issues: tickets.md
+  - Customer Service & Tickets:
+      - Account Management:
+          - Research Computing System (RCS):
+              - Create: tickets/account/rcs/create.md
+          - Cloud.rc:
+              - Create: tickets/account/cloud.rc/create.md
+      - ServiceNow Templates: tickets/snow_templates.md
+      - Uncategorized: tickets/tickets.md
 
 validation:
   nav:

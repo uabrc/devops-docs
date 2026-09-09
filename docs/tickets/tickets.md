@@ -4,16 +4,6 @@
 
 ## Account Registration
 
-### General Cheaha Account Request
-
-All UAB users can request their own Cheaha account by going to <https://rc.uab.edu> and filling out a short form. No intervention on our end is required.
-
-**Canned Response**:
-
-> Hi,
->
-> All UAB students, faculty, and staff can create their own Cheaha account by going to https://rc.uab.edu and filling out a short form. Once the form is complete, your account will be immediately ready for use. All accounts have 5 TB of personal space on the cluster. Please read through our Cheaha documentation at https://docs.rc.uab.edu/cheaha/getting_started/ to familiarize yourself with how the cluster operates. If you are able to create your account or run into any errors, please let us know in this ticket. Thank you
-
 ### Cloud Account Request
 
 Cloud accounts must be created by Clyde or John as of now and is not linked with SSO. Go through the following steps:
